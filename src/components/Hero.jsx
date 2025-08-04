@@ -1,4 +1,3 @@
-import { Link } from 'react-scroll';
 import profilePic from '../assets/profile.jpeg';
 const Hero = () => {
   return (
@@ -27,28 +26,6 @@ const Hero = () => {
             <p className="text-xl text-textSecondary mb-8">
               A passionate and profound Junior Software Engineer with high-caliber and eagerness to attain new knowledge, conveying all the solutions and experiences with modern technologies and appealing ideas into elegant, efficient, and user-friendly applications.
             </p>
-            <div className="flex gap-4 justify-center md:justify-start">
-              <Link
-                to="projects"
-                spy={true}
-                smooth={true}
-                offset={-64}
-                duration={500}
-                className="btn-primary"
-              >
-                View My Work
-              </Link>
-              <Link
-                to="contact"
-                spy={true}
-                smooth={true}
-                offset={-64}
-                duration={500}
-                className="px-6 py-3 text-sm font-medium text-secondary border-2 border-secondary rounded-lg hover:bg-secondary hover:bg-opacity-10 transition-all duration-300"
-              >
-                Contact Me
-              </Link>
-            </div>
           </div>
         </div>
       </div>
