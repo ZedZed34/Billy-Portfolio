@@ -22,10 +22,10 @@ const Hero = () => {
               Hi, I'm <span className="text-secondary">Billy</span>
             </h1>
             <h2 className="text-2xl sm:text-3xl font-bold text-textSecondary mb-4">
-              Software Developer
+              Software Engineer
             </h2>
             <p className="text-xl text-textSecondary mb-8">
-              A passionate developer crafting digital experiences with modern technologies.
+              A passionate and profound Junior Software Engineer with high-caliber and eagerness to attain new knowledge, conveying all the solutions and experiences with modern technologies. I transform ideas into elegant, efficient, and user-friendly applications.
             </p>
             <div className="flex gap-4 justify-center md:justify-start">
               <Link
