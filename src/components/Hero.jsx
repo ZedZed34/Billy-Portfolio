@@ -1,6 +1,5 @@
 import { Link } from 'react-scroll';
-import profilePic from '../assets/profile.jpg';
-
+import profilePic from '../assets/profile.jpeg';
 const Hero = () => {
   return (
     <section id="home" className="min-h-screen flex items-center bg-primary">
