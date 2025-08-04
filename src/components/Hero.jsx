@@ -25,7 +25,7 @@ const Hero = () => {
               Software Engineer
             </h2>
             <p className="text-xl text-textSecondary mb-8">
-              A passionate and profound Junior Software Engineer with high-caliber and eagerness to attain new knowledge, conveying all the solutions and experiences with modern technologies with appealing ideas into elegant, efficient, and user-friendly applications.
+              A passionate and profound Junior Software Engineer with high-caliber and eagerness to attain new knowledge, conveying all the solutions and experiences with modern technologies and appealing ideas into elegant, efficient, and user-friendly applications.
             </p>
             <div className="flex gap-4 justify-center md:justify-start">
               <Link
