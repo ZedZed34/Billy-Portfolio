@@ -1,4 +1,5 @@
 import { Link } from 'react-scroll';
+import profilePic from '../assets/profile.jpg';
 
 const Hero = () => {
   return (
@@ -7,11 +8,12 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           {/* Profile Picture - Left Side */}
           <div className="flex justify-center md:justify-start">
-            <div className="w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-secondary">
-              {/* Replace with your profile picture */}
-              <div className="w-full h-full bg-tertiary flex items-center justify-center text-textSecondary">
-                Add Profile Picture
-              </div>
+            <div className="w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-secondary shadow-2xl">
+              <img 
+                src={profilePic} 
+                alt="Htet Lin Aung" 
+                className="w-full h-full object-cover object-center"
+              />
             </div>
           </div>
 
