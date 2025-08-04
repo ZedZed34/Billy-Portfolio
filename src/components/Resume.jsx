@@ -66,7 +66,7 @@ const Resume = () => {
               {experience.map((job) => (
                 <div key={job.id} className="bg-tertiary p-6 rounded-lg">
                   <h4 className="text-xl font-bold text-white">{job.title}</h4>
-                  <p className="text-secondary mb-2">{job.company}</p>
+                  <p className="text-white mb-2">{job.company}</p>
                   <p className="text-textSecondary text-sm mb-4">{job.duration}</p>
                   <ul className="list-disc list-inside text-textSecondary space-y-1">
                     {job.responsibilities.map((resp, index) => (
@@ -86,7 +86,7 @@ const Resume = () => {
               {education.map((edu) => (
                 <div key={edu.id} className="bg-tertiary p-6 rounded-lg">
                   <h4 className="text-xl font-bold text-white">{edu.degree}</h4>
-                  <p className="text-secondary mb-2">{edu.institution}</p>
+                  <p className="text-white mb-2">{edu.institution}</p>
                   <p className="text-textSecondary text-sm mb-2">{edu.duration}</p>
                   <p className="text-textSecondary">{edu.details}</p>
                 </div>

@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import emailjs from 'emailjs-com';
+import githubIcon from '../assets/icons/github-social.svg';
+import linkedinIcon from '../assets/icons/linkedin-social.svg';
+import instagramIcon from '../assets/icons/instagram-social.svg';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -110,10 +113,41 @@ const Contact = () => {
             <a
               href="/cv.pdf"
               download="Htet_Lin_Aung_CV.pdf"
-              className="text-secondary hover:text-opacity-80 transition-colors duration-200 underline text-lg"
+              className="text-secondary hover:text-opacity-80 transition-colors duration-200 underline text-lg mb-8 inline-block"
             >
               Download CV
             </a>
+
+            {/* Social Links */}
+            <div className="flex justify-center gap-6 mt-8">
+              <a
+                href="https://github.com/yourgithub"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 hover:scale-110 transition-transform"
+                aria-label="GitHub Profile"
+              >
+                <img src={githubIcon} alt="GitHub" className="w-full h-full" />
+              </a>
+              <a
+                href="https://linkedin.com/in/yourlinkedin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 hover:scale-110 transition-transform"
+                aria-label="LinkedIn Profile"
+              >
+                <img src={linkedinIcon} alt="LinkedIn" className="w-full h-full" />
+              </a>
+              <a
+                href="https://instagram.com/yourinstagram"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 hover:scale-110 transition-transform"
+                aria-label="Instagram Profile"
+              >
+                <img src={instagramIcon} alt="Instagram" className="w-full h-full" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
