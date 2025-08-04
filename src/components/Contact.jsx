@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import emailjs from 'emailjs-com';
-import githubIcon from '../assets/icons/github-social.svg';
-import linkedinIcon from '../assets/icons/linkedin-social.svg';
-import instagramIcon from '../assets/icons/instagram-social.svg';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -39,7 +36,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="bg-primary py-20">
+    <section id="contact" className="bg-primary pb-4 pt-12">
       <div className="section-container">
         <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
           Get In <span className="text-white">Touch</span>
@@ -103,49 +100,49 @@ const Contact = () => {
             )}
           </form>
 
-          <div className="mt-12 text-center">
-            <p className="text-white mb-2">
+          <div className="mt-6 text-center">
+            <p className="text-white mb-1">
               Email: <span className="text-secondary">htetlinaungpc@gmail.com</span>
             </p>
-            <p className="text-white mb-6">
+            <p className="text-white mb-2">
               WhatsApp: <span className="text-secondary">+6584024132</span>
             </p>
             <a
               href="/cv.pdf"
               download="Htet_Lin_Aung_CV.pdf"
-              className="text-secondary hover:text-opacity-80 transition-colors duration-200 underline text-lg mb-8 inline-block"
+              className="text-secondary hover:text-opacity-80 transition-colors duration-200 underline text-lg mb-3 inline-block"
             >
               Download CV
             </a>
 
             {/* Social Links */}
-            <div className="flex justify-center gap-6 mt-8">
+            <div className="flex justify-center gap-8 mt-3">
               <a
                 href="https://github.com/yourgithub"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 hover:scale-110 transition-transform"
+                className="w-12 h-12 hover:scale-110 transition-transform"
                 aria-label="GitHub Profile"
               >
-                <img src={githubIcon} alt="GitHub" className="w-full h-full" />
+                <img src="/icons/github-social.svg" alt="GitHub" className="w-full h-full" />
               </a>
               <a
                 href="https://linkedin.com/in/yourlinkedin"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 hover:scale-110 transition-transform"
+                className="w-12 h-12 hover:scale-110 transition-transform"
                 aria-label="LinkedIn Profile"
               >
-                <img src={linkedinIcon} alt="LinkedIn" className="w-full h-full" />
+                <img src="/icons/linkedin-social.svg" alt="LinkedIn" className="w-full h-full" />
               </a>
               <a
                 href="https://instagram.com/yourinstagram"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 hover:scale-110 transition-transform"
+                className="w-12 h-12 hover:scale-110 transition-transform"
                 aria-label="Instagram Profile"
               >
-                <img src={instagramIcon} alt="Instagram" className="w-full h-full" />
+                <img src="/icons/instagram-social.svg" alt="Instagram" className="w-full h-full" />
               </a>
             </div>
           </div>
