@@ -1,15 +1,12 @@
 import { useState } from 'react';
 
 const Projects = () => {
-  const [filter, setFilter] = useState('all');
-
   const projects = [
     {
       id: 1,
       title: 'E-Commerce Platform',
       description: 'A full-stack e-commerce solution with user authentication, product management, and payment integration.',
       technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Stripe'],
-      category: 'fullstack',
       image: '/project1.png',
       liveLink: '#',
       githubLink: '#'
@@ -19,7 +16,6 @@ const Projects = () => {
       title: 'Task Management App',
       description: 'A collaborative task management application with real-time updates and team features.',
       technologies: ['React', 'Firebase', 'Material-UI', 'Redux'],
-      category: 'frontend',
       image: '/project2.png',
       liveLink: '#',
       githubLink: '#'
@@ -29,16 +25,11 @@ const Projects = () => {
       title: 'REST API Service',
       description: 'A robust RESTful API service with authentication, rate limiting, and comprehensive documentation.',
       technologies: ['Node.js', 'Express', 'PostgreSQL', 'JWT', 'Swagger'],
-      category: 'backend',
       image: '/project3.png',
       liveLink: '#',
       githubLink: '#'
     }
   ];
-
-  const filteredProjects = filter === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === filter);
 
   return (
     <section id="projects" className="bg-tertiary py-20">
@@ -47,53 +38,9 @@ const Projects = () => {
           My Projects
         </h2>
 
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <button
-            onClick={() => setFilter('all')}
-            className={`px-6 py-2 rounded-full transition-all ${
-              filter === 'all' 
-                ? 'bg-secondary text-primary' 
-                : 'bg-primary text-white hover:bg-secondary hover:text-primary'
-            }`}
-          >
-            All Projects
-          </button>
-          <button
-            onClick={() => setFilter('frontend')}
-            className={`px-6 py-2 rounded-full transition-all ${
-              filter === 'frontend' 
-                ? 'bg-secondary text-primary' 
-                : 'bg-primary text-white hover:bg-secondary hover:text-primary'
-            }`}
-          >
-            Frontend
-          </button>
-          <button
-            onClick={() => setFilter('backend')}
-            className={`px-6 py-2 rounded-full transition-all ${
-              filter === 'backend' 
-                ? 'bg-secondary text-primary' 
-                : 'bg-primary text-white hover:bg-secondary hover:text-primary'
-            }`}
-          >
-            Backend
-          </button>
-          <button
-            onClick={() => setFilter('fullstack')}
-            className={`px-6 py-2 rounded-full transition-all ${
-              filter === 'fullstack' 
-                ? 'bg-secondary text-primary' 
-                : 'bg-primary text-white hover:bg-secondary hover:text-primary'
-            }`}
-          >
-            Full Stack
-          </button>
-        </div>
-
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
+          {projects.map((project) => (
             <div 
               key={project.id} 
               className="bg-primary rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow"

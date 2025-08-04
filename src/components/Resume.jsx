@@ -51,46 +51,17 @@ const Resume = () => {
     }
   ];
 
-  const handleDownload = () => {
-    // Create a link to download the resume
-    const link = document.createElement('a');
-    link.href = '/resume.pdf'; // You'll need to add your resume PDF to the public folder
-    link.download = 'Htet_Lin_Aung_Resume.pdf';
-    link.click();
-  };
-
   return (
     <section id="resume" className="bg-primary py-20">
       <div className="section-container">
-        <div className="flex justify-between items-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
-            Resume
-          </h2>
-          <button
-            onClick={handleDownload}
-            className="px-6 py-3 bg-secondary text-primary rounded-lg hover:bg-opacity-90 transition-opacity flex items-center gap-2"
-          >
-            <svg 
-              className="w-5 h-5" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" 
-              />
-            </svg>
-            Download Resume
-          </button>
-        </div>
+        <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-12">
+          My Background
+        </h2>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Experience Section */}
           <div>
-            <h3 className="text-2xl font-bold mb-6 text-secondary">Experience</h3>
+            <h3 className="text-2xl font-bold mb-6 text-white">Experience</h3>
             <div className="space-y-6">
               {experience.map((job) => (
                 <div key={job.id} className="bg-tertiary p-6 rounded-lg">
@@ -110,7 +81,7 @@ const Resume = () => {
           {/* Education & Certifications */}
           <div>
             {/* Education */}
-            <h3 className="text-2xl font-bold mb-6 text-secondary">Education</h3>
+            <h3 className="text-2xl font-bold mb-6 text-white">Education</h3>
             <div className="space-y-6 mb-12">
               {education.map((edu) => (
                 <div key={edu.id} className="bg-tertiary p-6 rounded-lg">
@@ -123,7 +94,7 @@ const Resume = () => {
             </div>
 
             {/* Certifications */}
-            <h3 className="text-2xl font-bold mb-6 text-secondary">Certifications</h3>
+            <h3 className="text-2xl font-bold mb-6 text-white">Certifications</h3>
             <div className="space-y-4">
               {certifications.map((cert) => (
                 <div key={cert.id} className="bg-tertiary p-4 rounded-lg">
@@ -133,25 +104,6 @@ const Resume = () => {
                   </p>
                 </div>
               ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Skills Summary */}
-        <div className="mt-12 bg-tertiary p-8 rounded-lg">
-          <h3 className="text-2xl font-bold mb-6 text-secondary">Technical Skills</h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div>
-              <h4 className="font-bold text-white mb-3">Frontend</h4>
-              <p className="text-textSecondary">React, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, Redux, Next.js</p>
-            </div>
-            <div>
-              <h4 className="font-bold text-white mb-3">Backend</h4>
-              <p className="text-textSecondary">Node.js, Express.js, Python, Django, RESTful APIs, GraphQL, PostgreSQL, MongoDB</p>
-            </div>
-            <div>
-              <h4 className="font-bold text-white mb-3">Tools & Others</h4>
-              <p className="text-textSecondary">Git, Docker, AWS, CI/CD, Jest, Webpack, Agile/Scrum, Linux</p>
             </div>
           </div>
         </div>

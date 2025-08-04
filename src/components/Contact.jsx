@@ -38,8 +38,8 @@ const Contact = () => {
   return (
     <section id="contact" className="bg-primary py-20">
       <div className="section-container">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-8">
-          Get In <span className="text-secondary">Touch</span>
+        <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
+          Get In <span className="text-white">Touch</span>
         </h2>
         <div className="max-w-2xl mx-auto">
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -88,7 +88,7 @@ const Contact = () => {
             <button
               type="submit"
               disabled={status === 'sending'}
-              className="btn-primary w-full"
+              className="w-full bg-secondary text-white py-3 px-6 rounded-lg hover:bg-opacity-90 transition-all duration-300"
             >
               {status === 'sending' ? 'Sending...' : 'Send Message'}
             </button>
@@ -99,6 +99,22 @@ const Contact = () => {
               <p className="text-red-500 text-center">Failed to send message. Please try again.</p>
             )}
           </form>
+
+          <div className="mt-12 text-center">
+            <p className="text-white mb-2">
+              Email: <span className="text-secondary">htetlinaungpc@gmail.com</span>
+            </p>
+            <p className="text-white mb-6">
+              WhatsApp: <span className="text-secondary">+6584024132</span>
+            </p>
+            <a
+              href="/cv.pdf"
+              download="Htet_Lin_Aung_CV.pdf"
+              className="text-secondary hover:text-opacity-80 transition-colors duration-200 underline text-lg"
+            >
+              Download CV
+            </a>
+          </div>
         </div>
       </div>
     </section>
