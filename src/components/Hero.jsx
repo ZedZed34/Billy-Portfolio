@@ -1,4 +1,8 @@
 import profilePic from '../assets/profiles/profile.jpeg';
+import githubIcon from '../assets/icons/github-social.svg';
+import linkedinIcon from '../assets/icons/linkedin-social.svg';
+import instagramIcon from '../assets/icons/instagram-social.svg';
+
 const Hero = () => {
   return (
     <section id="home" className="min-h-screen flex items-center bg-primary">
@@ -36,7 +40,7 @@ const Hero = () => {
                 className="w-12 h-12 hover:scale-110 transition-transform"
                 aria-label="GitHub Profile"
               >
-                <img src="/src/assets/icons/github-social.svg" alt="GitHub" className="w-full h-full" />
+                <img src={githubIcon} alt="GitHub" className="w-full h-full" />
               </a>
               
               <a 
@@ -46,7 +50,7 @@ const Hero = () => {
                 className="w-12 h-12 hover:scale-110 transition-transform"
                 aria-label="LinkedIn Profile"
               >
-                <img src="/src/assets/icons/linkedin-social.svg" alt="LinkedIn" className="w-full h-full" />
+                <img src={linkedinIcon} alt="LinkedIn" className="w-full h-full" />
               </a>
               
               <a 
@@ -56,7 +60,7 @@ const Hero = () => {
                 className="w-12 h-12 hover:scale-110 transition-transform"
                 aria-label="Instagram Profile"
               >
-                <img src="/src/assets/icons/instagram-social.svg" alt="Instagram" className="w-full h-full" />
+                <img src={instagramIcon} alt="Instagram" className="w-full h-full" />
               </a>
             </div>
           </div>
