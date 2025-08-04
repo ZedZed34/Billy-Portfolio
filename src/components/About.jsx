@@ -28,17 +28,33 @@ const About = () => {
           <div>
             <h3 className="text-2xl font-bold mb-6 text-secondary">Skills</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              {/* We'll populate these with your actual skills later */}
-              <div className="bg-tertiary p-4 rounded-lg text-center">
-                <span className="text-white">Skill 1</span>
+              <div className="bg-tertiary p-4 rounded-lg text-center hover:bg-secondary hover:text-primary transition-all cursor-pointer">
+                <span className="text-white font-medium">React</span>
               </div>
-              <div className="bg-tertiary p-4 rounded-lg text-center">
-                <span className="text-white">Skill 2</span>
+              <div className="bg-tertiary p-4 rounded-lg text-center hover:bg-secondary hover:text-primary transition-all cursor-pointer">
+                <span className="text-white font-medium">Node.js</span>
               </div>
-              <div className="bg-tertiary p-4 rounded-lg text-center">
-                <span className="text-white">Skill 3</span>
+              <div className="bg-tertiary p-4 rounded-lg text-center hover:bg-secondary hover:text-primary transition-all cursor-pointer">
+                <span className="text-white font-medium">JavaScript</span>
               </div>
-              {/* Add more skills as needed */}
+              <div className="bg-tertiary p-4 rounded-lg text-center hover:bg-secondary hover:text-primary transition-all cursor-pointer">
+                <span className="text-white font-medium">TypeScript</span>
+              </div>
+              <div className="bg-tertiary p-4 rounded-lg text-center hover:bg-secondary hover:text-primary transition-all cursor-pointer">
+                <span className="text-white font-medium">MongoDB</span>
+              </div>
+              <div className="bg-tertiary p-4 rounded-lg text-center hover:bg-secondary hover:text-primary transition-all cursor-pointer">
+                <span className="text-white font-medium">Express.js</span>
+              </div>
+              <div className="bg-tertiary p-4 rounded-lg text-center hover:bg-secondary hover:text-primary transition-all cursor-pointer">
+                <span className="text-white font-medium">Python</span>
+              </div>
+              <div className="bg-tertiary p-4 rounded-lg text-center hover:bg-secondary hover:text-primary transition-all cursor-pointer">
+                <span className="text-white font-medium">Git</span>
+              </div>
+              <div className="bg-tertiary p-4 rounded-lg text-center hover:bg-secondary hover:text-primary transition-all cursor-pointer">
+                <span className="text-white font-medium">Tailwind CSS</span>
+              </div>
             </div>
           </div>
         </div>
