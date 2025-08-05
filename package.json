@@ -12,8 +12,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scroll": "^1.9.0",
-    "emailjs-com": "^3.2.0"
+    "react-scroll": "^1.9.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
@@ -30,7 +29,12 @@
   },
   "description": "My professional portfolio website showcasing my projects and skills",
   "main": "vite.config.js",
-  "keywords": ["portfolio", "react", "tailwind", "vite"],
+  "keywords": [
+    "portfolio",
+    "react",
+    "tailwind",
+    "vite"
+  ],
   "author": "Billy",
   "license": "MIT"
 }

@@ -1,10 +1,13 @@
 import { useState } from 'react';
-import emailjs from 'emailjs-com';
 
 const Contact = () => {
+  // IMPORTANT: Replace this with your actual access key from https://web3forms.com/
+  const ACCESS_KEY = "3a3798cf-c5a2-4a3a-8083-b17e3c754a90";
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: '',
   });
   const [status, setStatus] = useState('');
@@ -18,20 +21,51 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Check if access key is still the placeholder
+    if (ACCESS_KEY === "YOUR_ACCESS_KEY") {
+      alert("Please get your free access key from https://web3forms.com/ and replace YOUR_ACCESS_KEY in the code!");
+      return;
+    }
+    
     setStatus('sending');
 
     try {
-      // You'll need to replace these with your EmailJS credentials
-      await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
-        formData,
-        'YOUR_USER_ID'
-      );
-      setStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      // Using Web3Forms - simpler alternative to EmailJS
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          replyto: formData.email,
+          from_name: formData.name,
+          to_name: "Htet Lin Aung",
+        }),
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log("Form submitted successfully");
+        setStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setStatus(''), 5000);
+      } else {
+        console.error("Form submission failed:", result);
+        setStatus('error');
+        setTimeout(() => setStatus(''), 5000);
+      }
     } catch (error) {
+      console.error("Error submitting form:", error);
       setStatus('error');
+      setTimeout(() => setStatus(''), 5000);
     }
   };
 
@@ -66,6 +100,20 @@ const Contact = () => {
                 id="email"
                 name="email"
                 value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2 bg-tertiary rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
+              />
+            </div>
+            <div>
+              <label htmlFor="subject" className="block text-sm font-medium mb-2">
+                Subject
+              </label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                value={formData.subject}
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-2 bg-tertiary rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
