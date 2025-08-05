@@ -102,10 +102,10 @@ const Contact = () => {
 
           <div className="mt-6 text-center">
             <p className="text-white mb-1">
-              Email: <span className="text-secondary">htetlinaungpc@gmail.com</span>
+              Email: <a href="mailto:htetlinaungpc@gmail.com" className="text-secondary hover:underline">htetlinaungpc@gmail.com</a>
             </p>
             <p className="text-white mb-2">
-              WhatsApp: <span className="text-secondary">+6584024132</span>
+              WhatsApp: <a href="https://wa.me/6584024132" target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline">+6584024132</a>
             </p>
             <a
               href="/cv.pdf"
