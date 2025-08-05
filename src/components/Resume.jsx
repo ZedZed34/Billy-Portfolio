@@ -29,10 +29,10 @@ const Resume = () => {
   const education = [
     {
       id: 1,
-      degree: 'Bachelor of Science in Computer Science',
-      institution: 'University Name',
-      duration: '2018 - 2022',
-      details: 'Relevant coursework: Data Structures, Algorithms, Web Development, Database Systems'
+      degree: 'Postgraduate Certificate in Information Technology',
+      institution: 'The University of Auckland',
+      duration: '2023 - 2024',
+      details: 'Relevant coursework: Programming for Industry, Data Algorithms, Web Development, Database Systems, Software Engineering, Agile Development and Project Management, Git, Svelte, React, Node.js, Express.js, MongoDB, MySQL, CI/CD,'
     }
   ];
 

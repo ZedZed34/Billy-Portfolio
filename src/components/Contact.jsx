@@ -118,7 +118,7 @@ const Contact = () => {
             {/* Social Links */}
             <div className="flex justify-center gap-8 mt-3">
               <a
-                href="https://github.com/yourgithub"
+                href="https://github.com/ZedZed34"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 hover:scale-110 transition-transform"
@@ -127,7 +127,7 @@ const Contact = () => {
                 <img src="/icons/github-social.svg" alt="GitHub" className="w-full h-full" />
               </a>
               <a
-                href="https://linkedin.com/in/yourlinkedin"
+                href="https://linkedin.com/in/htet-lin-aung-5159491a0"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 hover:scale-110 transition-transform"
@@ -136,7 +136,7 @@ const Contact = () => {
                 <img src="/icons/linkedin-social.svg" alt="LinkedIn" className="w-full h-full" />
               </a>
               <a
-                href="https://instagram.com/yourinstagram"
+                href="https://www.instagram.com/billyhtet.hla"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 hover:scale-110 transition-transform"

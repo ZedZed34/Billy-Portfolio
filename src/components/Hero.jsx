@@ -34,7 +34,7 @@ const Hero = () => {
             {/* Social Links */}
             <div className="flex gap-4 justify-center md:justify-start">
               <a 
-                href="https://github.com/yourgithub" 
+                href="https://github.com/ZedZed34" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-12 h-12 hover:scale-110 transition-transform"
@@ -44,7 +44,7 @@ const Hero = () => {
               </a>
               
               <a 
-                href="https://linkedin.com/in/yourlinkedin" 
+                href="https://linkedin.com/in/htet-lin-aung-5159491a0" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-12 h-12 hover:scale-110 transition-transform"
@@ -54,7 +54,7 @@ const Hero = () => {
               </a>
               
               <a 
-                href="https://instagram.com/yourinstagram" 
+                href="https://www.instagram.com/billyhtet.hla" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-12 h-12 hover:scale-110 transition-transform"
