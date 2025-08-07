@@ -1,4 +1,55 @@
+import { motion } from 'framer-motion';
+
 const Resume = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
   const experience = [
     {
       id: 1,
@@ -52,63 +103,176 @@ const Resume = () => {
   ];
 
   return (
-    <section id="resume" className="bg-primary py-20">
+    <motion.section 
+      id="resume" 
+      className="bg-primary py-20"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ 
+        type: "spring",
+        stiffness: 50,
+        damping: 20
+      }}
+      variants={containerVariants}
+    >
       <div className="section-container">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-12">
+        <motion.h2 
+          className="text-3xl sm:text-4xl font-bold text-white text-center mb-12"
+          variants={sectionVariants}
+        >
           My Background
-        </h2>
+        </motion.h2>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <motion.div 
+          className="grid lg:grid-cols-2 gap-12"
+          variants={containerVariants}
+        >
           {/* Experience Section */}
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-white">Experience</h3>
-            <div className="space-y-6">
+          <motion.div variants={sectionVariants}>
+            <motion.h3 
+              className="text-2xl font-bold mb-6 text-white"
+              variants={itemVariants}
+            >
+              Experience
+            </motion.h3>
+            <motion.div 
+              className="space-y-6"
+              variants={containerVariants}
+            >
               {experience.map((job) => (
-                <div key={job.id} className="bg-tertiary p-6 rounded-lg">
-                  <h4 className="text-xl font-bold text-white">{job.title}</h4>
-                  <p className="text-white mb-2">{job.company}</p>
-                  <p className="text-textSecondary text-sm mb-4">{job.duration}</p>
-                  <ul className="list-disc list-inside text-textSecondary space-y-1">
+                <motion.div 
+                  key={job.id} 
+                  className="bg-tertiary p-6 rounded-lg"
+                  variants={cardVariants}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <motion.h4 
+                    className="text-xl font-bold text-white"
+                    variants={itemVariants}
+                  >
+                    {job.title}
+                  </motion.h4>
+                  <motion.p 
+                    className="text-white mb-2"
+                    variants={itemVariants}
+                  >
+                    {job.company}
+                  </motion.p>
+                  <motion.p 
+                    className="text-textSecondary text-sm mb-4"
+                    variants={itemVariants}
+                  >
+                    {job.duration}
+                  </motion.p>
+                  <motion.ul 
+                    className="list-disc list-inside text-textSecondary space-y-1"
+                    variants={containerVariants}
+                  >
                     {job.responsibilities.map((resp, index) => (
-                      <li key={index}>{resp}</li>
+                      <motion.li 
+                        key={index}
+                        variants={itemVariants}
+                        whileHover={{ x: 10 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      >
+                        {resp}
+                      </motion.li>
                     ))}
-                  </ul>
-                </div>
+                  </motion.ul>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Education & Certifications */}
-          <div>
+          <motion.div variants={sectionVariants}>
             {/* Education */}
-            <h3 className="text-2xl font-bold mb-6 text-white">Education</h3>
-            <div className="space-y-6 mb-12">
+            <motion.h3 
+              className="text-2xl font-bold mb-6 text-white"
+              variants={itemVariants}
+            >
+              Education
+            </motion.h3>
+            <motion.div 
+              className="space-y-6 mb-12"
+              variants={containerVariants}
+            >
               {education.map((edu) => (
-                <div key={edu.id} className="bg-tertiary p-6 rounded-lg">
-                  <h4 className="text-xl font-bold text-white">{edu.degree}</h4>
-                  <p className="text-white mb-2">{edu.institution}</p>
-                  <p className="text-textSecondary text-sm mb-2">{edu.duration}</p>
-                  <p className="text-textSecondary">{edu.details}</p>
-                </div>
+                <motion.div 
+                  key={edu.id} 
+                  className="bg-tertiary p-6 rounded-lg"
+                  variants={cardVariants}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <motion.h4 
+                    className="text-xl font-bold text-white"
+                    variants={itemVariants}
+                  >
+                    {edu.degree}
+                  </motion.h4>
+                  <motion.p 
+                    className="text-white mb-2"
+                    variants={itemVariants}
+                  >
+                    {edu.institution}
+                  </motion.p>
+                  <motion.p 
+                    className="text-textSecondary text-sm mb-2"
+                    variants={itemVariants}
+                  >
+                    {edu.duration}
+                  </motion.p>
+                  <motion.p 
+                    className="text-textSecondary"
+                    variants={itemVariants}
+                  >
+                    {edu.details}
+                  </motion.p>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Certifications */}
-            <h3 className="text-2xl font-bold mb-6 text-white">Certifications</h3>
-            <div className="space-y-4">
+            <motion.h3 
+              className="text-2xl font-bold mb-6 text-white"
+              variants={itemVariants}
+            >
+              Certifications
+            </motion.h3>
+            <motion.div 
+              className="space-y-4"
+              variants={containerVariants}
+            >
               {certifications.map((cert) => (
-                <div key={cert.id} className="bg-tertiary p-4 rounded-lg">
-                  <h4 className="text-lg font-bold text-white">{cert.name}</h4>
-                  <p className="text-textSecondary">
+                <motion.div 
+                  key={cert.id} 
+                  className="bg-tertiary p-4 rounded-lg"
+                  variants={cardVariants}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <motion.h4 
+                    className="text-lg font-bold text-white"
+                    variants={itemVariants}
+                  >
+                    {cert.name}
+                  </motion.h4>
+                  <motion.p 
+                    className="text-textSecondary"
+                    variants={itemVariants}
+                  >
                     {cert.issuer} • {cert.date}
-                  </p>
-                </div>
+                  </motion.p>
+                </motion.div>
               ))}
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

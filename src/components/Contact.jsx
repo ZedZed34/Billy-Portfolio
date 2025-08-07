@@ -1,6 +1,55 @@
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 const Contact = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
+
+  const formControlVariants = {
+    hidden: { x: -20, opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
+
+  const socialVariants = {
+    hidden: { scale: 0, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 15
+      }
+    }
+  };
   // IMPORTANT: Replace this with your actual access key from https://web3forms.com/
   const ACCESS_KEY = "3a3798cf-c5a2-4a3a-8083-b17e3c754a90";
   
@@ -70,18 +119,47 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="bg-primary pb-4 pt-12">
+    <motion.section 
+      id="contact" 
+      className="bg-primary pb-4 pt-12"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={containerVariants}
+    >
       <div className="section-container">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
-          Get In <span className="text-white">Touch</span>
-        </h2>
-        <div className="max-w-2xl mx-auto">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-2">
+        <motion.h2 
+          className="text-3xl sm:text-4xl font-bold mb-8 text-center"
+          variants={itemVariants}
+        >
+          Get In <motion.span 
+            className="text-white"
+            animate={{
+              opacity: [1, 0.7, 1],
+              transition: { duration: 2, repeat: Infinity }
+            }}
+          >
+            Touch
+          </motion.span>
+        </motion.h2>
+        <motion.div 
+          className="max-w-2xl mx-auto"
+          variants={containerVariants}
+        >
+          <motion.form 
+            onSubmit={handleSubmit} 
+            className="space-y-6"
+            variants={containerVariants}
+          >
+            <motion.div variants={formControlVariants}>
+              <motion.label 
+                htmlFor="name" 
+                className="block text-sm font-medium mb-2"
+                variants={itemVariants}
+              >
                 Name
-              </label>
-              <input
+              </motion.label>
+              <motion.input
                 type="text"
                 id="name"
                 name="name"
@@ -89,13 +167,19 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-2 bg-tertiary rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
+                whileFocus={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">
+            </motion.div>
+            <motion.div variants={formControlVariants}>
+              <motion.label 
+                htmlFor="email" 
+                className="block text-sm font-medium mb-2"
+                variants={itemVariants}
+              >
                 Email
-              </label>
-              <input
+              </motion.label>
+              <motion.input
                 type="email"
                 id="email"
                 name="email"
@@ -103,13 +187,19 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-2 bg-tertiary rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
+                whileFocus={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
-            </div>
-            <div>
-              <label htmlFor="subject" className="block text-sm font-medium mb-2">
+            </motion.div>
+            <motion.div variants={formControlVariants}>
+              <motion.label 
+                htmlFor="subject" 
+                className="block text-sm font-medium mb-2"
+                variants={itemVariants}
+              >
                 Subject
-              </label>
-              <input
+              </motion.label>
+              <motion.input
                 type="text"
                 id="subject"
                 name="subject"
@@ -117,13 +207,19 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-2 bg-tertiary rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
+                whileFocus={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
-            </div>
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-2">
+            </motion.div>
+            <motion.div variants={formControlVariants}>
+              <motion.label 
+                htmlFor="message" 
+                className="block text-sm font-medium mb-2"
+                variants={itemVariants}
+              >
                 Message
-              </label>
-              <textarea
+              </motion.label>
+              <motion.textarea
                 id="message"
                 name="message"
                 value={formData.message}
@@ -131,72 +227,129 @@ const Contact = () => {
                 required
                 rows="4"
                 className="w-full px-4 py-2 bg-tertiary rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
-              ></textarea>
-            </div>
-            <button
+                whileFocus={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              />
+            </motion.div>
+            <motion.button
               type="submit"
               disabled={status === 'sending'}
               className="w-full bg-secondary text-white py-3 px-6 rounded-lg hover:bg-opacity-90 transition-all duration-300"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               {status === 'sending' ? 'Sending...' : 'Send Message'}
-            </button>
+            </motion.button>
             {status === 'success' && (
-              <p className="text-green-500 text-center">Message sent successfully!</p>
+              <motion.p 
+                className="text-green-500 text-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+              >
+                Message sent successfully!
+              </motion.p>
             )}
             {status === 'error' && (
-              <p className="text-red-500 text-center">Failed to send message. Please try again.</p>
+              <motion.p 
+                className="text-red-500 text-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+              >
+                Failed to send message. Please try again.
+              </motion.p>
             )}
-          </form>
+          </motion.form>
 
-          <div className="mt-6 text-center">
-            <p className="text-white mb-1">
-              Email: <a href="mailto:htetlinaungpc@gmail.com" className="text-secondary hover:underline">htetlinaungpc@gmail.com</a>
-            </p>
-            <p className="text-white mb-2">
-              WhatsApp: <a href="https://wa.me/6584024132" target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline">+6584024132</a>
-            </p>
-            <a
+          <motion.div 
+            className="mt-6 text-center"
+            variants={containerVariants}
+          >
+            <motion.p 
+              className="text-white mb-1"
+              variants={itemVariants}
+            >
+              Email: <motion.a 
+                href="mailto:htetlinaungpc@gmail.com" 
+                className="text-secondary hover:underline"
+                whileHover={{ scale: 1.05 }}
+              >
+                htetlinaungpc@gmail.com
+              </motion.a>
+            </motion.p>
+            <motion.p 
+              className="text-white mb-2"
+              variants={itemVariants}
+            >
+              WhatsApp: <motion.a 
+                href="https://wa.me/6584024132" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-secondary hover:underline"
+                whileHover={{ scale: 1.05 }}
+              >
+                +6584024132
+              </motion.a>
+            </motion.p>
+            <motion.a
               href="/cv.pdf"
               download="Htet_Lin_Aung_CV.pdf"
               className="text-secondary hover:text-opacity-80 transition-colors duration-200 underline text-lg mb-3 inline-block"
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Download CV
-            </a>
+            </motion.a>
 
             {/* Social Links */}
-            <div className="flex justify-center gap-8 mt-3">
-              <a
+            <motion.div 
+              className="flex justify-center gap-8 mt-3"
+              variants={containerVariants}
+            >
+              <motion.a
                 href="https://github.com/ZedZed34"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 hover:scale-110 transition-transform"
+                className="w-12 h-12"
+                variants={socialVariants}
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.9 }}
                 aria-label="GitHub Profile"
               >
                 <img src="/icons/github-social.svg" alt="GitHub" className="w-full h-full" />
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="https://linkedin.com/in/htet-lin-aung-5159491a0"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 hover:scale-110 transition-transform"
+                className="w-12 h-12"
+                variants={socialVariants}
+                whileHover={{ scale: 1.2, rotate: -5 }}
+                whileTap={{ scale: 0.9 }}
                 aria-label="LinkedIn Profile"
               >
                 <img src="/icons/linkedin-social.svg" alt="LinkedIn" className="w-full h-full" />
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="https://www.instagram.com/billyhtet.hla"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 hover:scale-110 transition-transform"
+                className="w-12 h-12"
+                variants={socialVariants}
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.9 }}
                 aria-label="Instagram Profile"
               >
                 <img src="/icons/instagram-social.svg" alt="Instagram" className="w-full h-full" />
-              </a>
-            </div>
-          </div>
-        </div>
+              </motion.a>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

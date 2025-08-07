@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import profilePic2 from '../assets/profiles/profile2.jpeg';
 import reactIcon from '../assets/icons/react.svg';
 import nodejsIcon from '../assets/icons/nodejs.svg';
@@ -18,6 +19,44 @@ import htmlIcon from '../assets/icons/html.svg';
 import cssIcon from '../assets/icons/css.svg';
 
 const About = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { duration: 0.5, when: "beforeChildren", staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const profileVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: { 
+      scale: 1, 
+      opacity: 1,
+      transition: { 
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
+
+  const skillVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: { 
+      scale: 1, 
+      opacity: 1,
+      transition: { duration: 0.3 }
+    }
+  };
   const skills = [
     {
       name: 'React',
@@ -90,50 +129,94 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="bg-primary py-20">
+    <motion.section 
+      id="about" 
+      className="bg-primary py-20"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={containerVariants}
+    >
       <div className="section-container">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-white text-center">
+        <motion.h2 
+          className="text-3xl sm:text-4xl font-bold mb-8 text-white text-center"
+          variants={itemVariants}
+        >
           About Me
-        </h2>
+        </motion.h2>
         <div className="flex flex-col md:flex-row gap-12 items-start">
-          <div className="flex-1">
-            <div className="w-64 h-64 mx-auto rounded-full overflow-hidden border-4 border-secondary shadow-2xl mb-8">
+          <motion.div 
+            className="flex-1"
+            variants={itemVariants}
+          >
+            <motion.div 
+              className="w-64 h-64 mx-auto rounded-full overflow-hidden border-4 border-secondary shadow-2xl mb-8"
+              variants={profileVariants}
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
               <img 
                 src={profilePic2} 
                 alt="Htet Lin Aung" 
                 className="w-full h-full object-cover object-center"
               />
-            </div>
-            <div className="text-center">
-              <p className="text-textSecondary mb-4 text-lg">
+            </motion.div>
+            <motion.div 
+              className="text-center"
+              variants={itemVariants}
+            >
+              <motion.p 
+                className="text-textSecondary mb-4 text-lg"
+                variants={itemVariants}
+              >
                 [Your introduction will go here. We can add this later when you provide your details.]
-              </p>
-              <p className="text-textSecondary mb-4 text-lg">
+              </motion.p>
+              <motion.p 
+                className="text-textSecondary mb-4 text-lg"
+                variants={itemVariants}
+              >
                 [We can add your professional journey and aspirations here.]
-              </p>
-            </div>
-          </div>
-          <div className="flex-1">
-            <h3 className="text-2xl font-bold mb-6 text-secondary text-center">Skills</h3>
+              </motion.p>
+            </motion.div>
+          </motion.div>
+          <motion.div 
+            className="flex-1"
+            variants={itemVariants}
+          >
+            <motion.h3 
+              className="text-2xl font-bold mb-6 text-secondary text-center"
+              variants={itemVariants}
+            >
+              Skills
+            </motion.h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {skills.map((skill, index) => (
-                <div 
+                <motion.div 
                   key={index}
                   className="bg-tertiary p-6 rounded-lg flex flex-col items-center gap-3 hover:bg-secondary transition-all cursor-pointer group"
+                  variants={skillVariants}
+                  whileHover={{ 
+                    scale: 1.05,
+                    transition: { type: "spring", stiffness: 300, damping: 20 }
+                  }}
                 >
-                  <div className="group-hover:scale-110 transition-transform">
+                  <motion.div 
+                    className="group-hover:scale-110 transition-transform"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
                     <img src={skill.icon} alt={skill.name} className="w-12 h-12" />
-                  </div>
+                  </motion.div>
                   <span className="text-white font-medium group-hover:text-primary">
                     {skill.name}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
