@@ -10,7 +10,7 @@ import svelteIcon from '../assets/icons/svelte.svg';
 import expressjsIcon from '../assets/icons/expressjs.svg';
 import mysqlIcon from '../assets/icons/mysql.svg';
 import postgresqlIcon from '../assets/icons/postgresql.svg';
-import restapiIcon from '../assets/icons/restapi.svg';
+
 import postmanIcon from '../assets/icons/postman.svg';
 import githubIcon from '../assets/icons/github.svg';
 import gitIcon from '../assets/icons/git.svg';
@@ -98,10 +98,7 @@ const About = () => {
       name: 'PostgreSQL',
       icon: postgresqlIcon
     },
-    {
-      name: 'RESTful API',
-      icon: restapiIcon
-    },
+
     {
       name: 'Postman',
       icon: postmanIcon
@@ -169,13 +166,25 @@ const About = () => {
                 className="text-textSecondary mb-4 text-lg"
                 variants={itemVariants}
               >
-                [Your introduction will go here. We can add this later when you provide your details.]
+                Hi, I am <span className="font-semibold">Billy</span>, a <span className="font-semibold">Software Engineer</span> with special expertise in <span className="font-semibold">Svelte</span>, <span className="font-semibold">React</span>, <span className="font-semibold">Node.js</span>, <span className="font-semibold">Django</span>, <span className="font-semibold">Spring</span>, <span className="font-semibold">Express.js</span> and <span className="font-semibold">RESTful API</span> alongside <span className="font-semibold">RDBMS</span> technologies like <span className="font-semibold">SQLite</span>, <span className="font-semibold">MySQL</span>, <span className="font-semibold">PostgreSQL</span>, and <span className="font-semibold">MongoDB</span> as <span className="font-semibold">NoSQL</span>, as well as possess the knowledge of <span className="font-semibold">Agile Development</span>, <span className="font-semibold">Waterfall Model</span>, and <span className="font-semibold">Scrum</span>. I can also illustrate the <span className="font-semibold">UI/UX design</span>, and <span className="font-semibold">Wireframes</span> with <span className="font-semibold">Figma</span> at competent level. I am the character that I always wanted to hone up my skills when it comes to exploring modern technologies and so on, leveraging my skills is always the greatest strength for me. I am always keen to deliver seamless solutions to all sectors of businesses.
               </motion.p>
               <motion.p 
                 className="text-textSecondary mb-4 text-lg"
                 variants={itemVariants}
               >
-                [We can add your professional journey and aspirations here.]
+                My journey in software development began with HTML and CSS, but it was when I discovered the power of modern frameworks and languages that my passion for development truly ignited. I specialize in creating efficient, scalable applications with a strong emphasis on clean code and exceptional user experience.
+              </motion.p>
+              <motion.p 
+                className="text-textSecondary mb-4 text-lg"
+                variants={itemVariants}
+              >
+                Currently, I am pursuing my Postgraduate Certificate in Information Technology at The University of Auckland, where I'm expanding my knowledge in advanced software development concepts and modern technologies. I enjoy working on both individual and collaborative projects, always seeking opportunities to learn and grow as a developer.
+              </motion.p>
+              <motion.p 
+                className="text-textSecondary mb-4 text-lg"
+                variants={itemVariants}
+              >
+                When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or staying updated with the latest trends in software development. I'm also passionate about sharing knowledge and collaborating with other developers to create meaningful solutions that solve real-world problems.
               </motion.p>
             </motion.div>
           </motion.div>
