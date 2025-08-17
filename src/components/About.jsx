@@ -172,20 +172,13 @@ const About = () => {
                 className="text-textSecondary mb-4 text-lg"
                 variants={itemVariants}
               >
-                My journey in software development began with HTML and CSS, but it was when I discovered the power of modern frameworks and languages that my passion for development truly ignited. I specialize in creating efficient, scalable applications with a strong emphasis on clean code and exceptional user experience.
-              </motion.p>
+                Before I have become a Software Engineer, I was an Electronic Engineer for 3 years and 2 months in Myanmar. I was responsible for taking on tasks such as repairing control systems, tracing PCB circuits as engineering practices, coordination of generator installations for data-center environments, as well as designing and developing IoT components and configurations with Arduino Microcontrollers. During my tenure as an electronic engineer, I boosted up my debugging discipline, documentation habits, and team collaboration with cross-functional teams.              </motion.p>
               <motion.p 
                 className="text-textSecondary mb-4 text-lg"
                 variants={itemVariants}
               >
-                Currently, I am pursuing my Postgraduate Certificate in Information Technology at The University of Auckland, where I'm expanding my knowledge in advanced software development concepts and modern technologies. I enjoy working on both individual and collaborative projects, always seeking opportunities to learn and grow as a developer.
-              </motion.p>
-              <motion.p 
-                className="text-textSecondary mb-4 text-lg"
-                variants={itemVariants}
-              >
-                When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or staying updated with the latest trends in software development. I'm also passionate about sharing knowledge and collaborating with other developers to create meaningful solutions that solve real-world problems.
-              </motion.p>
+                Once after mesmerized by the mystery of Computers, I took Postgraduate Certificate in Information Technology as an enhancement to my career to tackle jobs in tech industries. I built multi-functional projects such as Carpark Management API with Django framework with Python, a financial tracking API with featured MVC with Spring framework, Calories Calculator based on TDEE/BMR for fat loss or weight gain goals with functional features including generating workout plans with bodyweight goals developed with React.js, and A Full-Stack responsive Blogging Web Application with Svelte framework alongside JWT authentication, with concrete demonstrations of Frontend/Backend technology and competent knowledge of DevOps.              </motion.p>
+              
             </motion.div>
           </motion.div>
           <motion.div 
