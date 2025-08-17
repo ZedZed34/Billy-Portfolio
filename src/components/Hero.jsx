@@ -108,7 +108,7 @@ const Hero = () => {
               className="text-xl text-textSecondary mb-8"
               variants={itemVariants}
             >
-              A passionate and profound Junior Software Engineer with high-caliber and eagerness to attain new knowledge, conveying all the solutions and experiences with modern technologies and appealing ideas into elegant, efficient, and user-friendly applications.
+              A passionate and profound Software Engineer with high-caliber and eagerness to attain new knowledge, conveying all the solutions and experiences with modern technologies and appealing ideas into elegant, efficient, and user-friendly applications.
             </motion.p>
             
             {/* Social Links */}
