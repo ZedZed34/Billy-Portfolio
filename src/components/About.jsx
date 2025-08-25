@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import profilePic2 from '../assets/profiles/profile2.jpeg';
+// Importing all icons
 import reactIcon from '../assets/icons/react.svg';
 import nodejsIcon from '../assets/icons/nodejs.svg';
 import javaIcon from '../assets/icons/java.svg';
@@ -10,7 +11,6 @@ import svelteIcon from '../assets/icons/svelte.svg';
 import expressjsIcon from '../assets/icons/expressjs.svg';
 import mysqlIcon from '../assets/icons/mysql.svg';
 import postgresqlIcon from '../assets/icons/postgresql.svg';
-
 import postmanIcon from '../assets/icons/postman.svg';
 import githubIcon from '../assets/icons/github.svg';
 import gitIcon from '../assets/icons/git.svg';

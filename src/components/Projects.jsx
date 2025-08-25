@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import caloriesCalculatorImg from '../assets/projects/calories-calculator.jpg';
+import adoptMeImg from '../assets/projects/adopt-me.jpg';
+import carparkAPIImg from '../assets/projects/carpark-api.jpg';
 
 const Projects = () => {
   const containerVariants = {
@@ -40,30 +43,27 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce solution with user authentication, product management, and payment integration.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Stripe'],
-      image: '/project1.png',
-      liveLink: '#',
-      githubLink: '#'
+      title: 'Calories Calculator',
+      description: 'A web application to track and manage calorie intake with a user-friendly interface.',
+      technologies: ['React', 'Vite', 'Tailwind CSS', 'Vercel'],
+      image: caloriesCalculatorImg,
+      githubLink: 'https://github.com/ZedZed34/Calories-Counter.git'
     },
     {
       id: 2,
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates and team features.',
-      technologies: ['React', 'Firebase', 'Material-UI', 'Redux'],
-      image: '/project2.png',
-      liveLink: '#',
-      githubLink: '#'
+      title: 'Adopt Me',
+      description: 'Pet Adoption Full-Stack web application, developed with SvelteKit as Frontend, and Node.js and Express.js as Backend.',
+      technologies: ['Svelte', 'SvelteKit', 'Node.js', 'Express.js', 'SQLite', 'JWT', 'CORS'],
+      image: adoptMeImg,
+      githubLink: 'https://github.com/ZedZed34/Adopt-me.git'
     },
     {
       id: 3,
-      title: 'REST API Service',
-      description: 'A robust RESTful API service with authentication, rate limiting, and comprehensive documentation.',
+      title: 'Carparking Management',
+      description: 'A simple RESTful API service with authentication, rate limiting, and comprehensive documentation.',
       technologies: ['Node.js', 'Express', 'PostgreSQL', 'JWT', 'Swagger'],
-      image: '/project3.png',
-      liveLink: '#',
-      githubLink: '#'
+      image: carparkAPIImg,
+      githubLink: 'https://github.com/ZedZed34/Carparking-Management-API.git'
     }
   ];
 
@@ -105,11 +105,19 @@ const Projects = () => {
               }}
             >
               <motion.div 
-                className="h-48 bg-gray-700 flex items-center justify-center"
+                className="h-48 bg-gray-700 flex items-center justify-center overflow-hidden"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <span className="text-gray-500">Project Image</span>
+                {project.image ? (
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-gray-500">Project Image</span>
+                )}
               </motion.div>
               <div className="p-6">
                 <motion.h3 
@@ -149,20 +157,10 @@ const Projects = () => {
                   variants={containerVariants}
                 >
                   <motion.a 
-                    href={project.liveLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 text-center py-2 bg-secondary text-primary rounded hover:bg-opacity-90 transition-all"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Live Demo
-                  </motion.a>
-                  <motion.a 
                     href={project.githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center py-2 border border-secondary text-secondary rounded hover:bg-secondary hover:text-primary transition-all"
+                    className="w-full text-center py-2 border border-secondary text-secondary rounded hover:bg-secondary hover:text-primary transition-all"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >

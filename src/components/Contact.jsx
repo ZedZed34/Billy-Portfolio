@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import cvFile from '../assets/resume/HLA-CV.pdf';
 
 const Contact = () => {
   const containerVariants = {
@@ -71,7 +72,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Check if access key is still the placeholder
+    // Getting Email API Token
     if (ACCESS_KEY === "YOUR_ACCESS_KEY") {
       alert("Please get your free access key from https://web3forms.com/ and replace YOUR_ACCESS_KEY in the code!");
       return;
@@ -294,7 +295,7 @@ const Contact = () => {
               </motion.a>
             </motion.p>
             <motion.a
-              href="/cv.pdf"
+              href={cvFile}
               download="Htet_Lin_Aung_CV.pdf"
               className="text-secondary hover:text-opacity-80 transition-colors duration-200 underline text-lg mb-3 inline-block"
               variants={itemVariants}
