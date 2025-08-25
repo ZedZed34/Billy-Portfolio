@@ -51,7 +51,7 @@ const Contact = () => {
       }
     }
   };
-  // IMPORTANT: Replace this with your actual access key from https://web3forms.com/
+  // IMPORTANT: API actual access key from https://web3forms.com/
   const ACCESS_KEY = "3a3798cf-c5a2-4a3a-8083-b17e3c754a90";
   
   const [formData, setFormData] = useState({
