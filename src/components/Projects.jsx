@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import caloriesCalculatorImg from '../assets/projects/calories-calculator.jpg';
+import caloriesCalculatorImg from "../assets/projects/calories-calculator.jpg"
 import adoptMeImg from '../assets/projects/adopt-me.jpg';
 import carparkAPIImg from '../assets/projects/carpark-api.jpg';
+import financialAPIImg from '../assets/projects/financial-api.jpg';
 
 const Projects = () => {
   const containerVariants = {
@@ -60,10 +61,18 @@ const Projects = () => {
     {
       id: 3,
       title: 'Carparking Management',
-      description: 'A simple RESTful API service with authentication, rate limiting, and comprehensive documentation.',
-      technologies: ['Node.js', 'Express', 'PostgreSQL', 'JWT', 'Swagger'],
+      description: 'Playing with Django-RESTful API service with filtering features of car parking slots with carparks dataset.',
+      technologies: ['Python', 'Django', 'Django REST Framework', 'SQLite', 'Pandas', 'NumPy'],
       image: carparkAPIImg,
       githubLink: 'https://github.com/ZedZed34/Carparking-Management-API.git'
+    },
+    {
+      id: 4,
+      title: 'Spend Tracker',
+      description: 'A financial tracking API with Spring framework comprising user account creation, H2 database integration, and transaction management.',
+      technologies: ['Java', 'Spring Boot', 'H2', 'JPA', 'Spring Security', 'MVC', 'Spring Data Validation', 'Spring Web', 'PostgreSQL'],
+      image: financialAPIImg,
+      githubLink: 'https://github.com/ZedZed34/Financial-Tracking-API.git'
     }
   ];
 

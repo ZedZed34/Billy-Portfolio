@@ -53,26 +53,30 @@ const Resume = () => {
   const experience = [
     {
       id: 1,
-      title: 'Software Engineer',
-      company: 'Tech Company Name',
-      duration: '2023 - Present',
+      title: 'Electronic Engineer',
+      company: 'Aung Thein Than Co., Ltd.',
+      location: 'Yangon, Myanmar',
+      duration: 'Jan 2020 - Feb 2023',
       responsibilities: [
-        'Developed and maintained full-stack web applications using React and Node.js',
-        'Collaborated with cross-functional teams to deliver high-quality software solutions',
-        'Implemented RESTful APIs and integrated third-party services',
-        'Participated in code reviews and contributed to technical documentation'
+        'Responsible in the repair of electrical machinery and control systems, and facilitated the restoration of instrumentation systems through adherence to work orders and cross-departmental collaboration.',
+        'Conducted systematic analysis and tracing of PCB circuits and electrical components in alignment with scheduled timelines and ISO protocols.',
+        'Prepared structured agendas to facilitate meetings between clients and supervisory personnel.',
+        'Oversaw and coordinated the installation of generators for datacenter operations.',
+        'Evaluated technical vetting sheets for potential issues and prepared solution-oriented documentation for review by senior engineers and supervisors.'
       ]
     },
     {
       id: 2,
-      title: 'Junior Developer',
-      company: 'Previous Company',
-      duration: '2022 - 2023',
+      title: 'Electronic Engineer Intern',
+      company: 'Myanmar World Distribution Co., Ltd.',
+      location: 'Yangon, Myanmar',
+      duration: 'Sept 2017 - Jan 2018',
       responsibilities: [
-        'Assisted in developing frontend components using React and TypeScript',
-        'Worked on bug fixes and feature enhancements',
-        'Participated in Agile development processes',
-        'Learned and applied best practices in software development'
+        'Provided technical assistance in computer hardware troubleshooting as part of a service team in collaboration with peers.',
+        'Contributed to the CCTV installation process by supporting Network Operations Center (NOC) engineers.',
+        'Supported network engineers in configuring core elements required for effective server maintenance.',
+        'Engaged in collaborative fiber optics installation projects across districts with co-interns, while acquiring practical knowledge of fiber optics fusion splicer operations.',
+        'Developed foundational understanding of data transmission principles through active participation in server control center monitoring activities.'
       ]
     }
   ];
@@ -81,25 +85,50 @@ const Resume = () => {
     {
       id: 1,
       degree: 'Postgraduate Certificate in Information Technology',
-      institution: 'The University of Auckland',
+      institution: 'University of Auckland',
       duration: '2023 - 2024',
       details: 'Relevant coursework: Programming for Industry, Data Algorithms, Web Development, Database Systems, Software Engineering, Agile Development and Project Management, Git, Svelte, React, Node.js, Express.js, MongoDB, MySQL, CI/CD,'
+    },
+    {
+      id: 2,
+      degree: 'Bachelor of Engineering with Honours in Electronic Systems Engineering',
+      institution: 'University of Bedfordshire',
+      duration: '2016 - 2019',
+      details: 'Relevant coursework: Circuit Design, Control Systems, Digital Signal Processing, Microcontrollers, Electromagnetics, Communication Systems'
     }
   ];
 
   const certifications = [
     {
       id: 1,
-      name: 'AWS Certified Cloud Practitioner',
-      issuer: 'Amazon Web Services',
-      date: '2023'
+      name: 'Spring Framework',
+      issuer: 'LearnQuest',
+      date: 'July 2025'
     },
     {
       id: 2,
-      name: 'React Developer Certification',
-      issuer: 'Meta',
-      date: '2023'
-    }
+      name: 'Introduction to Software Engineering',
+      issuer: 'IBM',
+      date: 'July 2025'
+    },
+   {
+    id: 3,
+    name: 'Introduction to Agile Development and Scrum',
+    issuer: 'IBM',
+    date: 'July 2025'
+   },
+   {
+    id: 4,
+    name: 'Introduction to Cloud Computing',
+    issuer: 'IBM',
+    date: 'July 2025'
+   },
+   {
+    id: 5,
+    name: 'Introduction to DevOps',
+    issuer: 'IBM',
+    date: 'July 2025'
+   }
   ];
 
   return (

@@ -27,6 +27,14 @@ const Footer = () => {
     <footer className="bg-primary py-1">
       <div className="section-container">
         <div className="flex flex-col items-center">
+          <motion.p
+            className="text-textSecondary text-sm"
+            initial="hidden"
+            whileInView="visible"
+            variants={itemVariants}
+          >
+            Copyright © {new Date().getFullYear()} Billy Htet
+          </motion.p>
         </div>
       </div>
     </footer>
