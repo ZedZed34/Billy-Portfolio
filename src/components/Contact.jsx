@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import cvFile from '../assets/resume/HLA-CV.pdf';
+import cvFile from '../assets/resume/HLA-CV-Main.pdf';
 
 const Contact = () => {
   const containerVariants = {
@@ -73,8 +73,8 @@ const Contact = () => {
     e.preventDefault();
     
     // Getting Email API Token
-    if (ACCESS_KEY === "YOUR_ACCESS_KEY") {
-      alert("Please get your free access key from https://web3forms.com/ and replace YOUR_ACCESS_KEY in the code!");
+    if (ACCESS_KEY === "ACCESS_KEY") {
+      alert("Please get your free access key from https://web3forms.com/ and replace ACCESS_KEY in the code!");
       return;
     }
     
@@ -296,13 +296,13 @@ const Contact = () => {
             </motion.p>
             <motion.a
               href={cvFile}
-              download="Htet_Lin_Aung_CV.pdf"
+              download="Htet_Lin_Aung_Resume.pdf"
               className="text-secondary hover:text-opacity-80 transition-colors duration-200 underline text-lg mb-3 inline-block"
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Download CV
+              Download Resume
             </motion.a>
 
             {/* Social Links */}
