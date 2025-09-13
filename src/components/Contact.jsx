@@ -296,7 +296,7 @@ const Contact = () => {
             </motion.p>
             <motion.a
               href={cvFile}
-              download="Htet_Lin_Aung_Resume.pdf"
+              download="Htet_Lin_Aung_Resume.pdf" //Resume download filename
               className="text-secondary hover:text-opacity-80 transition-colors duration-200 underline text-lg mb-3 inline-block"
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
