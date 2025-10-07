@@ -87,7 +87,7 @@ const Resume = () => {
       degree: 'Postgraduate Certificate in Information Technology',
       institution: 'University of Auckland',
       duration: '2023 - 2024',
-      details: 'Relevant coursework: Programming for Industry, Data Algorithms, Web Development, Database Systems, Software Engineering, Agile Development and Project Management, Git, Svelte, React, Node.js, Express.js, MongoDB, MySQL, CI/CD,'
+      details: 'Relevant coursework: Programming for Industry, Data Algorithms, Web Development, Database Systems, Software Engineering, Agile Development and Project Management, Git, Svelte, React, Node.js, Express.js, MongoDB, MySQL, CI/CD'
     },
     {
       id: 2,
