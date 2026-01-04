@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import cvFile from '../assets/resume/HLA-CV-Main.pdf';
+import cvFile from '../assets/resume/HLA_Resume.pdf';
 
 const Contact = () => {
   const containerVariants = {
