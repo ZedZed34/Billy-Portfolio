@@ -94,7 +94,7 @@ const Hero = () => {
             >
               Hi, I'm               <motion.span
                 className="text-secondary"
-                style={{ color: '#B22222' }}  // Dark red color
+                style={{ color: '#65081f' }}  // Dark red color
               >
                 Billy
               </motion.span>
