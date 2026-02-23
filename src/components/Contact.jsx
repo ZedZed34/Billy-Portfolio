@@ -53,7 +53,7 @@ const Contact = () => {
   };
   // IMPORTANT: API actual access key from https://web3forms.com/
   const ACCESS_KEY = "3a3798cf-c5a2-4a3a-8083-b17e3c754a90";
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -71,13 +71,13 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Getting Email API Token
     if (ACCESS_KEY === "ACCESS_KEY") {
       alert("Please get your free access key from https://web3forms.com/ and replace ACCESS_KEY in the code!");
       return;
     }
-    
+
     setStatus('sending');
 
     try {
@@ -101,7 +101,7 @@ const Contact = () => {
       });
 
       const result = await response.json();
-      
+
       if (result.success) {
         console.log("Form submitted successfully");
         setStatus('success');
@@ -120,8 +120,8 @@ const Contact = () => {
   };
 
   return (
-    <motion.section 
-      id="contact" 
+    <motion.section
+      id="contact"
       className="bg-primary pb-4 pt-12"
       initial="hidden"
       whileInView="visible"
@@ -129,11 +129,11 @@ const Contact = () => {
       variants={containerVariants}
     >
       <div className="section-container">
-        <motion.h2 
+        <motion.h2
           className="text-3xl sm:text-4xl font-bold mb-8 text-center"
           variants={itemVariants}
         >
-          Get In <motion.span 
+          Get In <motion.span
             className="text-white"
             animate={{
               opacity: [1, 0.7, 1],
@@ -143,18 +143,18 @@ const Contact = () => {
             Touch
           </motion.span>
         </motion.h2>
-        <motion.div 
+        <motion.div
           className="max-w-2xl mx-auto"
           variants={containerVariants}
         >
-          <motion.form 
-            onSubmit={handleSubmit} 
+          <motion.form
+            onSubmit={handleSubmit}
             className="space-y-6"
             variants={containerVariants}
           >
             <motion.div variants={formControlVariants}>
-              <motion.label 
-                htmlFor="name" 
+              <motion.label
+                htmlFor="name"
                 className="block text-sm font-medium mb-2"
                 variants={itemVariants}
               >
@@ -173,8 +173,8 @@ const Contact = () => {
               />
             </motion.div>
             <motion.div variants={formControlVariants}>
-              <motion.label 
-                htmlFor="email" 
+              <motion.label
+                htmlFor="email"
                 className="block text-sm font-medium mb-2"
                 variants={itemVariants}
               >
@@ -193,8 +193,8 @@ const Contact = () => {
               />
             </motion.div>
             <motion.div variants={formControlVariants}>
-              <motion.label 
-                htmlFor="subject" 
+              <motion.label
+                htmlFor="subject"
                 className="block text-sm font-medium mb-2"
                 variants={itemVariants}
               >
@@ -213,8 +213,8 @@ const Contact = () => {
               />
             </motion.div>
             <motion.div variants={formControlVariants}>
-              <motion.label 
-                htmlFor="message" 
+              <motion.label
+                htmlFor="message"
                 className="block text-sm font-medium mb-2"
                 variants={itemVariants}
               >
@@ -243,7 +243,7 @@ const Contact = () => {
               {status === 'sending' ? 'Sending...' : 'Send Message'}
             </motion.button>
             {status === 'success' && (
-              <motion.p 
+              <motion.p
                 className="text-green-500 text-center"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -253,7 +253,7 @@ const Contact = () => {
               </motion.p>
             )}
             {status === 'error' && (
-              <motion.p 
+              <motion.p
                 className="text-red-500 text-center"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -264,34 +264,48 @@ const Contact = () => {
             )}
           </motion.form>
 
-          <motion.div 
+          <motion.div
             className="mt-6 text-center"
             variants={containerVariants}
           >
-            <motion.p 
+            <motion.p
               className="text-white mb-1"
               variants={itemVariants}
             >
-              Email: <motion.a 
-                href="mailto:htetlinaungpc@gmail.com" 
+              Email: <motion.a
+                href="mailto:htetlinaungpc@gmail.com"
                 className="text-secondary hover:underline"
                 whileHover={{ scale: 1.05 }}
               >
                 htetlinaungpc@gmail.com
               </motion.a>
             </motion.p>
-            <motion.p 
+            <motion.p
               className="text-white mb-2"
               variants={itemVariants}
             >
-              WhatsApp: <motion.a 
-                href="https://wa.me/6584024132" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              WhatsApp: <motion.a
+                href="https://wa.me/6584024132"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-secondary hover:underline"
                 whileHover={{ scale: 1.05 }}
               >
                 +6584024132
+              </motion.a>
+            </motion.p>
+            <motion.p
+              className="text-white mb-2"
+              variants={itemVariants}
+            >
+              LINE: <motion.a
+                href="https://line.me/ti/p/I8tP8Q7-Ym"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-secondary hover:underline"
+                whileHover={{ scale: 1.05 }}
+              >
+                Add me on LINE
               </motion.a>
             </motion.p>
             <motion.a
@@ -306,7 +320,7 @@ const Contact = () => {
             </motion.a>
 
             {/* Social Links */}
-            <motion.div 
+            <motion.div
               className="flex justify-center gap-8 mt-3"
               variants={containerVariants}
             >
@@ -345,6 +359,18 @@ const Contact = () => {
                 aria-label="Instagram Profile"
               >
                 <img src="/icons/instagram-social.svg" alt="Instagram" className="w-full h-full" />
+              </motion.a>
+              <motion.a
+                href="https://line.me/ti/p/I8tP8Q7-Ym"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12"
+                variants={socialVariants}
+                whileHover={{ scale: 1.2, rotate: -5 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label="LINE"
+              >
+                <img src="/icons/line-social.svg" alt="LINE" className="w-full h-full" />
               </motion.a>
             </motion.div>
           </motion.div>
