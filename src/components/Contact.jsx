@@ -294,20 +294,6 @@ const Contact = () => {
                 +6584024132
               </motion.a>
             </motion.p>
-            <motion.p
-              className="text-white mb-2"
-              variants={itemVariants}
-            >
-              LINE: <motion.a
-                href="https://line.me/ti/p/I8tP8Q7-Ym"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-secondary hover:underline"
-                whileHover={{ scale: 1.05 }}
-              >
-                Add me on LINE
-              </motion.a>
-            </motion.p>
             <motion.a
               href={cvFile}
               download="Htet_Lin_Aung_Resume.pdf" //Resume download filename
