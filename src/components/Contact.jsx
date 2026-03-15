@@ -270,7 +270,7 @@ const Contact = () => {
         variants={containerVariants}
       >
         <motion.p
-          className="text-white mb-1"
+          className="text-white mb-1 text-xl"
           variants={itemVariants}
         >
           Email: <motion.a
@@ -282,7 +282,7 @@ const Contact = () => {
           </motion.a>
         </motion.p>
         <motion.p
-          className="text-white mb-2"
+          className="text-white mb-2 text-xl"
           variants={itemVariants}
         >
           WhatsApp: <motion.a
@@ -296,7 +296,7 @@ const Contact = () => {
           </motion.a>
         </motion.p>
         <motion.p
-          className="text-white mb-3"
+          className="text-white mb-3 text-xl"
           variants={itemVariants}
         >
           LINE ID: <motion.a
@@ -311,7 +311,7 @@ const Contact = () => {
         <motion.a
           href={cvFile}
           download="Htet_Lin_Aung_Resume.pdf" //Resume download filename
-          className="text-secondary hover:text-opacity-80 transition-colors duration-200 underline text-lg mb-3 inline-block"
+          className="text-secondary hover:text-opacity-80 transition-colors duration-200 underline text-2xl mb-3 inline-block"
           variants={itemVariants}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
