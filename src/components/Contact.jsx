@@ -51,7 +51,6 @@ const Contact = () => {
       }
     }
   };
-  // IMPORTANT: API actual access key from https://web3forms.com/
   const ACCESS_KEY = "3a3798cf-c5a2-4a3a-8083-b17e3c754a90";
 
   const [formData, setFormData] = useState({
@@ -72,7 +71,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Getting Email API Token
+    // Reminder for setting up Email API Token not really relevant
     if (ACCESS_KEY === "ACCESS_KEY") {
       alert("Please get your free access key from https://web3forms.com/ and replace ACCESS_KEY in the code!");
       return;
