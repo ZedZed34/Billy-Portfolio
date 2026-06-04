@@ -1,4 +1,72 @@
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+
+/* ─── Animated pulsing dot + expanding line next to section headers ─── */
+const SectionIndicator = () => (
+  <span className="inline-flex items-center gap-2 mr-3 align-middle">
+    <motion.span
+      className="inline-block w-3 h-3 rounded-full bg-secondary"
+      animate={{
+        scale: [1, 1.5, 1],
+        opacity: [1, 0.6, 1],
+        boxShadow: [
+          '0 0 0px #65001f',
+          '0 0 12px #65001f',
+          '0 0 0px #65001f',
+        ],
+      }}
+      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+    />
+    <motion.span
+      className="inline-block h-[2px] bg-secondary rounded-full"
+      initial={{ width: 0 }}
+      whileInView={{ width: 32 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+    />
+  </span>
+);
+
+/* ─── Animated vertical timeline line with node dots ─── */
+const TimelineConnector = ({ count }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
+
+  return (
+    <div
+      ref={ref}
+      className="absolute left-0 top-0 bottom-0 flex flex-col items-center"
+      style={{ width: 20 }}
+    >
+      {/* Vertical line */}
+      <motion.div
+        className="absolute top-2 bottom-2 w-[2px] bg-secondary rounded-full"
+        style={{ originY: 0 }}
+        initial={{ scaleY: 0 }}
+        animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
+        transition={{ duration: 1.2, ease: 'easeInOut' }}
+      />
+      {/* Node dots positioned at each card */}
+      {Array.from({ length: count }).map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-3 h-3 rounded-full bg-secondary border-2 border-primary z-10"
+          style={{ top: `${(i / (count - 1 || 1)) * 100}%`, transform: 'translate(-50%, -50%)', left: '50%' }}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+          transition={{ duration: 0.4, delay: 0.3 + i * 0.3, ease: 'easeOut' }}
+        >
+          {/* Pulse ring */}
+          <motion.div
+            className="absolute inset-0 rounded-full border-2 border-secondary"
+            animate={{ scale: [1, 2.2], opacity: [0.6, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.4 }}
+          />
+        </motion.div>
+      ))}
+    </div>
+  );
+};
 
 const Resume = () => {
   const containerVariants = {
@@ -50,6 +118,22 @@ const Resume = () => {
       }
     }
   };
+
+  /* 3D flip reveal for certification cards */
+  const certFlipVariants = {
+    hidden: { opacity: 0, rotateY: 90, transformPerspective: 800 },
+    visible: {
+      opacity: 1,
+      rotateY: 0,
+      transformPerspective: 800,
+      transition: {
+        type: "spring",
+        stiffness: 80,
+        damping: 14
+      }
+    }
+  };
+
   const experience = [
     {
       id: 1,
@@ -99,36 +183,11 @@ const Resume = () => {
   ];
 
   const certifications = [
-    {
-      id: 1,
-      name: 'Spring Framework',
-      issuer: 'LearnQuest',
-      date: 'July 2025'
-    },
-    {
-      id: 2,
-      name: 'Introduction to Software Engineering',
-      issuer: 'IBM',
-      date: 'July 2025'
-    },
-   {
-    id: 3,
-    name: 'Introduction to Agile Development and Scrum',
-    issuer: 'IBM',
-    date: 'July 2025'
-   },
-   {
-    id: 4,
-    name: 'Introduction to Cloud Computing',
-    issuer: 'IBM',
-    date: 'July 2025'
-   },
-   {
-    id: 5,
-    name: 'Introduction to DevOps',
-    issuer: 'IBM',
-    date: 'July 2025'
-   }
+    { id: 1, name: 'Spring Framework', issuer: 'LearnQuest', date: 'July 2025' },
+    { id: 2, name: 'Introduction to Software Engineering', issuer: 'IBM', date: 'July 2025' },
+    { id: 3, name: 'Introduction to Agile Development and Scrum', issuer: 'IBM', date: 'July 2025' },
+    { id: 4, name: 'Introduction to Cloud Computing', issuer: 'IBM', date: 'July 2025' },
+    { id: 5, name: 'Introduction to DevOps', issuer: 'IBM', date: 'July 2025' }
   ];
 
   return (
@@ -138,11 +197,7 @@ const Resume = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ 
-        type: "spring",
-        stiffness: 50,
-        damping: 20
-      }}
+      transition={{ type: "spring", stiffness: 50, damping: 20 }}
       variants={containerVariants}
     >
       <div className="section-container">
@@ -160,128 +215,141 @@ const Resume = () => {
           {/* Experience Section */}
           <motion.div variants={sectionVariants}>
             <motion.h3 
-              className="text-2xl font-bold mb-6 text-white"
+              className="text-2xl font-bold mb-6 text-white flex items-center"
               variants={itemVariants}
             >
+              <SectionIndicator />
               Experience
             </motion.h3>
-            <motion.div 
-              className="space-y-6"
-              variants={containerVariants}
-            >
-              {experience.map((job) => (
-                <motion.div 
-                  key={job.id} 
-                  className="bg-tertiary p-6 rounded-lg"
-                  variants={cardVariants}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <motion.h4 
-                    className="text-xl font-bold text-white"
-                    variants={itemVariants}
+            {/* Timeline wrapper */}
+            <div className="relative pl-8">
+              <TimelineConnector count={experience.length} />
+              <motion.div 
+                className="space-y-6"
+                variants={containerVariants}
+              >
+                {experience.map((job) => (
+                  <motion.div 
+                    key={job.id} 
+                    className="bg-tertiary p-6 rounded-lg"
+                    variants={cardVariants}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
-                    {job.title}
-                  </motion.h4>
-                  <motion.p 
-                    className="text-white mb-2"
-                    variants={itemVariants}
-                  >
-                    {job.company}
-                  </motion.p>
-                  <motion.p 
-                    className="text-textSecondary text-sm mb-4"
-                    variants={itemVariants}
-                  >
-                    {job.duration}
-                  </motion.p>
-                  <motion.ul 
-                    className="list-disc list-inside text-textSecondary space-y-1"
-                    variants={containerVariants}
-                  >
-                    {job.responsibilities.map((resp, index) => (
-                      <motion.li 
-                        key={index}
-                        variants={itemVariants}
-                        whileHover={{ x: 10 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      >
-                        {resp}
-                      </motion.li>
-                    ))}
-                  </motion.ul>
-                </motion.div>
-              ))}
-            </motion.div>
+                    <motion.h4 
+                      className="text-xl font-bold text-white"
+                      variants={itemVariants}
+                    >
+                      {job.title}
+                    </motion.h4>
+                    <motion.p 
+                      className="text-white mb-2"
+                      variants={itemVariants}
+                    >
+                      {job.company}
+                    </motion.p>
+                    <motion.p 
+                      className="text-textSecondary text-sm mb-4"
+                      variants={itemVariants}
+                    >
+                      {job.duration}
+                    </motion.p>
+                    <motion.ul 
+                      className="list-disc list-inside text-textSecondary space-y-1"
+                      variants={containerVariants}
+                    >
+                      {job.responsibilities.map((resp, index) => (
+                        <motion.li 
+                          key={index}
+                          variants={itemVariants}
+                          whileHover={{ x: 10 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        >
+                          {resp}
+                        </motion.li>
+                      ))}
+                    </motion.ul>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
           </motion.div>
 
           {/* Education & Certifications */}
           <motion.div variants={sectionVariants}>
             {/* Education */}
             <motion.h3 
-              className="text-2xl font-bold mb-6 text-white"
+              className="text-2xl font-bold mb-6 text-white flex items-center"
               variants={itemVariants}
             >
+              <SectionIndicator />
               Education
             </motion.h3>
-            <motion.div 
-              className="space-y-6 mb-12"
-              variants={containerVariants}
-            >
-              {education.map((edu) => (
-                <motion.div 
-                  key={edu.id} 
-                  className="bg-tertiary p-6 rounded-lg"
-                  variants={cardVariants}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <motion.h4 
-                    className="text-xl font-bold text-white"
-                    variants={itemVariants}
+            {/* Education timeline */}
+            <div className="relative pl-8">
+              <TimelineConnector count={education.length} />
+              <motion.div 
+                className="space-y-6 mb-12"
+                variants={containerVariants}
+              >
+                {education.map((edu) => (
+                  <motion.div 
+                    key={edu.id} 
+                    className="bg-tertiary p-6 rounded-lg"
+                    variants={cardVariants}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
-                    {edu.degree}
-                  </motion.h4>
-                  <motion.p 
-                    className="text-white mb-2"
-                    variants={itemVariants}
-                  >
-                    {edu.institution}
-                  </motion.p>
-                  <motion.p 
-                    className="text-textSecondary text-sm mb-2"
-                    variants={itemVariants}
-                  >
-                    {edu.duration}
-                  </motion.p>
-                  <motion.p 
-                    className="text-textSecondary"
-                    variants={itemVariants}
-                  >
-                    {edu.details}
-                  </motion.p>
-                </motion.div>
-              ))}
-            </motion.div>
+                    <motion.h4 
+                      className="text-xl font-bold text-white"
+                      variants={itemVariants}
+                    >
+                      {edu.degree}
+                    </motion.h4>
+                    <motion.p 
+                      className="text-white mb-2"
+                      variants={itemVariants}
+                    >
+                      {edu.institution}
+                    </motion.p>
+                    <motion.p 
+                      className="text-textSecondary text-sm mb-2"
+                      variants={itemVariants}
+                    >
+                      {edu.duration}
+                    </motion.p>
+                    <motion.p 
+                      className="text-textSecondary"
+                      variants={itemVariants}
+                    >
+                      {edu.details}
+                    </motion.p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
 
-            {/* Certifications */}
+            {/* Certifications with 3D flip reveal */}
             <motion.h3 
-              className="text-2xl font-bold mb-6 text-white"
+              className="text-2xl font-bold mb-6 text-white flex items-center"
               variants={itemVariants}
             >
+              <SectionIndicator />
               Certifications
             </motion.h3>
             <motion.div 
               className="space-y-4"
               variants={containerVariants}
+              style={{ perspective: 800 }}
             >
               {certifications.map((cert) => (
                 <motion.div 
                   key={cert.id} 
                   className="bg-tertiary p-4 rounded-lg"
-                  variants={cardVariants}
+                  variants={certFlipVariants}
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  style={{ transformStyle: 'preserve-3d' }}
                 >
                   <motion.h4 
                     className="text-lg font-bold text-white"
