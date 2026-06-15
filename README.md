@@ -8,16 +8,18 @@ A sleek, modern personal portfolio website built with **React**, **Tailwind CSS*
 
 ## ✨ Features
 
-- **Animated Hero Section** — Typing-effect introduction with particle background and floating geometric shapes
-- **About Section** — Bio with animated skill progress bars and tech stack icons
-- **Projects Showcase** — Filterable project cards with hover effects and live/source links
-- **Resume Section** — Tabbed timeline for education and experience, with a downloadable PDF
-- **Contact Form** — Integrated with [Web3Forms](https://web3forms.com/) for email delivery; includes social links
+- **Animated Hero Section** — Letter-by-letter typing effect, drifting particle background, pulsing profile photo with glow rings, and social link icons
+- **About Section** — Biography with a 16-skill icon grid featuring blur-reveal entrance animations and 360° rotate on hover
+- **Projects Showcase** — 3D mouse-tracking tilt cards with rotating gradient borders, image hover effects, and tech-badge pills
+- **Resume Section** — Animated timeline connectors for Experience & Education, plus 3D flip-reveal Certification cards
+- **Contact Form** — Integrated with [Web3Forms](https://web3forms.com/) for email delivery; animated floating-label inputs, dot-grid background, and download-resume link
+- **Glassmorphism Navbar** — Frosted-glass header with scroll progress bar, active-section tracking via IntersectionObserver, and animated underline
 - **Smooth Scrolling** — Section-to-section navigation via `react-scroll`
-- **Framer Motion Animations** — Scroll-triggered entrance animations, staggered reveals, and micro-interactions throughout
-- **Responsive Design** — Mobile-first layout with a hamburger menu for smaller screens
+- **Framer Motion Animations** — Scroll-triggered entrance animations, staggered reveals, and micro-interactions in every component
+- **Responsive Design** — Mobile-first layout with an animated hamburger menu for smaller screens
+- **Scroll-to-Top Button** — Appears contextually with a bouncing chevron and glow effect
 - **SEO Optimised** — Open Graph / Twitter meta tags, structured data (JSON-LD), sitemap, and robots.txt
-- **Custom Color System** — Dark primary (`#000000`) with crimson secondary (`#65001f`) defined in Tailwind config
+- **Custom Colour Palette** — Dark primary (`#000000`) with deep burgundy accent (`#65001f`) defined in Tailwind config
 
 ---
 
@@ -48,11 +50,11 @@ Billy-Portfolio/
 │   │   ├── projects/        # Project screenshots
 │   │   └── resume/          # Downloadable resume PDF
 │   ├── components/
-│   │   ├── Navbar.jsx       # Responsive nav with mobile hamburger menu
+│   │   ├── Navbar.jsx       # Glassmorphism nav with scroll progress bar
 │   │   ├── Hero.jsx         # Animated hero with typing effect & particles
-│   │   ├── About.jsx        # Bio, skills, and tech stack
-│   │   ├── Projects.jsx     # Filterable project showcase
-│   │   ├── Resume.jsx       # Education & experience timeline
+│   │   ├── About.jsx        # Bio, skill icon grid, and tech stack
+│   │   ├── Projects.jsx     # 3D tilt project cards with gradient borders
+│   │   ├── Resume.jsx       # Experience, education & certifications timeline
 │   │   ├── Contact.jsx      # Contact form (Web3Forms) & social links
 │   │   └── Footer.jsx       # Footer with links and copyright
 │   ├── App.jsx              # Root component with section dividers
@@ -152,9 +154,3 @@ This project is deployed on **Vercel**. To deploy your own fork:
 ## 📄 License
 
 This project is licensed under the **MIT License** — see the [License](License) file for details.
-
----
-
-<p align="center">
-  Built with ❤️ by <strong>Htet Lin Aung (Billy)</strong>
-</p>
