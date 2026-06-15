@@ -1,6 +1,12 @@
+<div align="center">
+
 # 🌐 Htet Lin Aung — Portfolio
 
 A sleek, modern personal portfolio website built with **React**, **Tailwind CSS**, and **Framer Motion**. Features smooth scroll-based animations, a dark theme with crimson accents, and a fully responsive layout.
+
+</div>
+
+---
 
 🔗 **Live Demo:** [billy-portfolio.vercel.app](https://billy-portfolio.vercel.app/)
 
@@ -154,3 +160,4 @@ This project is deployed on **Vercel**. To deploy your own fork:
 ## 📄 License
 
 This project is licensed under the **MIT License** — see the [License](License) file for details.
+
