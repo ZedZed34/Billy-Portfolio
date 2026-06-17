@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useMemo, useRef } from 'react';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import profilePic from '../assets/profiles/profile.jpeg';
 import githubIcon from '../assets/icons/github-social.svg';
 import linkedinIcon from '../assets/icons/linkedin-social.svg';
@@ -23,6 +23,24 @@ const generateParticles = (count) =>
 const Hero = () => {
   // ── Particles (memoised so array is stable) ──────────────────────────────
   const particles = useMemo(() => generateParticles(25), []);
+
+  // Mouse parallax tracking
+  const heroRef = useRef(null);
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+  const profileX = useTransform(mouseX, [0, 1], [8, -8]);
+  const profileY = useTransform(mouseY, [0, 1], [6, -6]);
+  const textX = useTransform(mouseX, [0, 1], [-6, 6]);
+  const textY = useTransform(mouseY, [0, 1], [-4, 4]);
+  const orbX = useTransform(mouseX, [0, 1], ['10%', '90%']);
+  const orbY = useTransform(mouseY, [0, 1], ['10%', '90%']);
+
+  const handleMouseMove = (e) => {
+    const rect = heroRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set((e.clientX - rect.left) / rect.width);
+    mouseY.set((e.clientY - rect.top) / rect.height);
+  };
 
   // ── Typewriter state ─────────────────────────────────────────────────────
   const nameText = 'Billy';
@@ -119,11 +137,20 @@ const Hero = () => {
   return (
     <motion.section
       id="home"
+      ref={heroRef}
+      onMouseMove={handleMouseMove}
       className="min-h-screen flex items-center bg-primary relative overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
+      {/* ── Cursor-following gradient orb ──────────────────────────────── */}
+      <motion.div
+        className="gradient-orb"
+        style={{ left: orbX, top: orbY }}
+        aria-hidden="true"
+      />
+
       {/* ── Floating Particles Background ──────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {particles.map((p) => (
@@ -161,6 +188,7 @@ const Hero = () => {
           <motion.div
             className="flex justify-center md:justify-start"
             variants={itemVariants}
+            style={{ x: profileX, y: profileY }}
           >
             {/* Floating wrapper */}
             <motion.div
@@ -233,10 +261,11 @@ const Hero = () => {
           <motion.div
             className="text-center md:text-left"
             variants={itemVariants}
+            style={{ x: textX, y: textY }}
           >
             {/* Typewriter heading */}
             <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4"
+              className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-balance"
               variants={itemVariants}
             >
               Hi, I&apos;m{' '}

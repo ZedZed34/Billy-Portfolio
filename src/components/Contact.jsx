@@ -316,7 +316,7 @@ const Contact = () => {
 
       <div className="section-container relative z-10">
         <motion.h2
-          className="text-3xl sm:text-4xl font-bold mb-8 text-center"
+          className="text-3xl sm:text-4xl font-bold mb-8 text-center text-balance"
           variants={itemVariants}
         >
           Get In <motion.span

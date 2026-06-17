@@ -71,6 +71,29 @@ const About = () => {
   };
 
 
+  /* Text reveal with gradient mask fade */
+  const TextReveal = ({ children, className = '' }) => (
+    <div className={`relative overflow-hidden ${className}`}>
+      <motion.div
+        initial={{ y: '100%', opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+      >
+        {children}
+      </motion.div>
+      {/* Bottom gradient mask fades away after text settles */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+        style={{ background: 'linear-gradient(to top, #000000, transparent)' }}
+        initial={{ opacity: 1 }}
+        whileInView={{ opacity: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
+      />
+    </div>
+  );
+
   const skills = [
     { name: 'React', icon: reactIcon },
     { name: 'Node.js', icon: nodejsIcon },
@@ -147,8 +170,8 @@ const About = () => {
 
       <div className="section-container">
         {/* ── Animated gradient title ── */}
-        <motion.h2 
-          className="gradient-text text-3xl sm:text-4xl font-bold mb-8 text-white text-center"
+        <motion.h2
+          className="gradient-text text-3xl sm:text-4xl font-bold mb-8 text-white text-center text-balance"
           variants={itemVariants}
         >
           About Me
@@ -177,15 +200,21 @@ const About = () => {
               className="text-center"
               variants={itemVariants}
             >
-              <motion.p className="text-textSecondary mb-4 text-lg" variants={itemVariants}>
-                Hi, I am <span className="font-semibold">Billy</span>, a <span className="font-semibold">Software Engineer</span> with special expertise in <span className="font-semibold">Svelte</span>, <span className="font-semibold">React</span>, <span className="font-semibold">Node.js</span>, <span className="font-semibold">Django</span>, <span className="font-semibold">Spring</span>, <span className="font-semibold">Express.js</span> and <span className="font-semibold">RESTful API</span> alongside <span className="font-semibold">RDBMS</span> technologies like <span className="font-semibold">SQLite</span>, <span className="font-semibold">MySQL</span>, <span className="font-semibold">PostgreSQL</span>, and <span className="font-semibold">MongoDB</span> as <span className="font-semibold">NoSQL</span>, as well as possess the knowledge of <span className="font-semibold">Agile Development</span>, <span className="font-semibold">Waterfall Model</span>, and <span className="font-semibold">Scrum</span>. I can also illustrate the <span className="font-semibold">UI/UX design</span>, and <span className="font-semibold">Wireframes</span> with <span className="font-semibold">Figma</span> at competent level. I am the character that I always wanted to hone up my skills when it comes to exploring modern technologies and so on, leveraging my skills is always the greatest strength for me. I am always keen to deliver seamless solutions to all sectors of businesses.
-              </motion.p>
-              <motion.p className="text-textSecondary mb-4 text-lg" variants={itemVariants}>
-                Before I have become a Software Engineer, I was an Electronic Engineer for 3 years and 2 months in Myanmar. I was responsible for taking on tasks such as repairing control systems, tracing PCB circuits as engineering practices, coordination of generator installations for data-center environments, as well as designing and developing IoT components and configurations with Arduino Microcontrollers. During my tenure as an electronic engineer, I boosted up my debugging discipline, documentation habits, and team collaboration with cross-functional teams.
-              </motion.p>
-              <motion.p className="text-textSecondary mb-4 text-lg" variants={itemVariants}>
-                Once after mesmerized by the mystery of Computers, I took Postgraduate Certificate in Information Technology as an enhancement to my career to tackle jobs in tech industries. I built multi-functional projects such as Carpark Management API with Django framework with Python, a financial tracking API with featured MVC with Spring framework, Calories Calculator based on TDEE/BMR for fat loss or weight gain goals with functional features including generating workout plans with bodyweight goals developed with React.js, and A Full-Stack responsive Blogging Web Application with Svelte framework alongside JWT authentication, with concrete demonstrations of Frontend/Backend technology and competent knowledge of DevOps.
-              </motion.p>
+              <TextReveal>
+                <p className="text-textSecondary mb-4 text-lg text-pretty text-justified drop-cap">
+                  Hi, I am <span className="font-semibold">Billy</span>, a <span className="font-semibold">Software Engineer</span> with special expertise in <span className="font-semibold">Svelte</span>, <span className="font-semibold">React</span>, <span className="font-semibold">Node.js</span>, <span className="font-semibold">Django</span>, <span className="font-semibold">Spring</span>, <span className="font-semibold">Express.js</span> and <span className="font-semibold">RESTful API</span> alongside <span className="font-semibold">RDBMS</span> technologies like <span className="font-semibold">SQLite</span>, <span className="font-semibold">MySQL</span>, <span className="font-semibold">PostgreSQL</span>, and <span className="font-semibold">MongoDB</span> as <span className="font-semibold">NoSQL</span>, as well as possess the knowledge of <span className="font-semibold">Agile Development</span>, <span className="font-semibold">Waterfall Model</span>, and <span className="font-semibold">Scrum</span>. I can also illustrate the <span className="font-semibold">UI/UX design</span>, and <span className="font-semibold">Wireframes</span> with <span className="font-semibold">Figma</span> at competent level. I am the character that I always wanted to hone up my skills when it comes to exploring modern technologies and so on, leveraging my skills is always the greatest strength for me. I am always keen to deliver seamless solutions to all sectors of businesses.
+                </p>
+              </TextReveal>
+              <TextReveal>
+                <p className="text-textSecondary mb-4 text-lg text-pretty text-justified">
+                  Before I have become a Software Engineer, I was an Electronic Engineer for 3 years and 2 months in Myanmar. I was responsible for taking on tasks such as repairing control systems, tracing PCB circuits as engineering practices, coordination of generator installations for data-center environments, as well as designing and developing IoT components and configurations with Arduino Microcontrollers. During my tenure as an electronic engineer, I boosted up my debugging discipline, documentation habits, and team collaboration with cross-functional teams.
+                </p>
+              </TextReveal>
+              <TextReveal>
+                <p className="text-textSecondary mb-4 text-lg text-pretty text-justified">
+                  Once after mesmerized by the mystery of Computers, I took Postgraduate Certificate in Information Technology as an enhancement to my career to tackle jobs in tech industries. I built multi-functional projects such as Carpark Management API with Django framework with Python, a financial tracking API with featured MVC with Spring framework, Calories Calculator based on TDEE/BMR for fat loss or weight gain goals with functional features including generating workout plans with bodyweight goals developed with React.js, and A Full-Stack responsive Blogging Web Application with Svelte framework alongside JWT authentication, with concrete demonstrations of Frontend/Backend technology and competent knowledge of DevOps.
+                </p>
+              </TextReveal>
             </motion.div>
 
 

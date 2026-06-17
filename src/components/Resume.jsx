@@ -202,7 +202,7 @@ const Resume = () => {
     >
       <div className="section-container">
         <motion.h2 
-          className="text-3xl sm:text-4xl font-bold text-white text-center mb-12"
+          className="text-3xl sm:text-4xl font-bold text-white text-center mb-12 text-balance"
           variants={sectionVariants}
         >
           My Background

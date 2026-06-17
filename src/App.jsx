@@ -27,6 +27,8 @@ const SectionDivider = () => (
 function App() {
   return (
     <div className="bg-primary min-h-screen">
+      {/* Grain texture overlay */}
+      <div className="grain-overlay" aria-hidden="true" />
       <Navbar />
       <main>
         <Hero />

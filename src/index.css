@@ -154,3 +154,79 @@
   transform-origin: left;
   z-index: 51;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TYPOGRAPHY UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 11. Text balancing — prevents orphans in headings ───────────────────── */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* ── 12. Text pretty — better line breaking for body text ────────────────── */
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* ── 13. Drop cap — classic print typography ─────────────────────────────── */
+.drop-cap::first-letter {
+  float: left;
+  font-size: 3.8em;
+  font-weight: 700;
+  line-height: 0.75;
+  margin-right: 0.12em;
+  margin-top: 0.05em;
+  color: #65001f;
+  text-shadow: 0 0 20px rgba(101, 0, 31, 0.3);
+}
+
+/* ── 14. Hyphenation for justified text ──────────────────────────────────── */
+.text-justified {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GRAIN / NOISE TEXTURE OVERLAY
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.035;
+  /* SVG noise filter rendered as data-URI background */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  animation: grain 8s steps(10) infinite;
+}
+
+/* ── Cursor-following gradient orb ───────────────────────────────────────── */
+.gradient-orb {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(101, 0, 31, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  filter: blur(60px);
+}

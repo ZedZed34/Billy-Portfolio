@@ -196,7 +196,7 @@ const Projects = () => {
 
       <div className="section-container">
         <motion.h2 
-          className="text-3xl sm:text-4xl font-bold mb-8 text-white text-center"
+          className="text-3xl sm:text-4xl font-bold mb-8 text-white text-center text-balance"
           variants={getProjectVariants(0)}
         >
           My Projects
