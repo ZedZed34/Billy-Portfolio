@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="public/favicon.svg" alt="Logo" width="80" height="80" />
-
 # Htet Lin Aung — Portfolio
 
 **[Live Demo](https://billy-portfolio.vercel.app/)** &nbsp;·&nbsp; [Report Bug](https://github.com/ZedZed34/Billy-Portfolio/issues) &nbsp;·&nbsp; [Request Feature](https://github.com/ZedZed34/Billy-Portfolio/issues)

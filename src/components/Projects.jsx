@@ -4,6 +4,7 @@ import caloriesCalculatorImg from "../assets/projects/calories-calculator.jpg"
 import adoptMeImg from '../assets/projects/adopt-me.jpg';
 import carparkAPIImg from '../assets/projects/carpark-api.jpg';
 import financialAPIImg from '../assets/projects/financial-api.jpg';
+import reviveImg from '../assets/projects/ReVive.jpg';
 
 /* ───────────────────────────────────────────────
    Reusable TiltCard wrapper – 3D perspective tilt
@@ -140,6 +141,21 @@ const Projects = () => {
       technologies: ['Java', 'Spring Boot', 'H2', 'JPA', 'Spring Security', 'MVC', 'Spring Data Validation', 'Spring Web', 'PostgreSQL'],
       image: financialAPIImg,
       githubLink: 'https://github.com/ZedZed34/Financial-Tracking-API.git'
+    },
+    {
+      id: 5,
+      title: 'ReVive',
+      description: 'A full-stack peer-to-peer platform for donating, discovering, requesting, and arranging pickup of reusable electronics within local communities.',
+      technologies: ['Next.js',
+      'React',
+      'TypeScript',
+      'Tailwind CSS',
+      'FastAPI',
+      'PostgreSQL',
+      'SQLAlchemy',
+      'Framer Motion'],
+      image: reviveImg,
+      githubLink: 'https://github.com/vibe-code-tours/team-15-app.git'
     }
   ];
 
