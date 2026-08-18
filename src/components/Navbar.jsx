@@ -89,15 +89,7 @@ const Navbar = () => {
             aria-label="Billy Htet, back to home"
             onClick={() => setIsOpen(false)}
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/20 bg-primary text-sm font-bold text-white">
-              BH
-            </span>
-            <span className="leading-tight">
-              <span className="block text-sm font-bold text-white sm:text-base">Billy Htet</span>
-              <span className="hidden text-[11px] font-medium uppercase tracking-[0.15em] text-textSecondary sm:block">
-                Software Engineer
-              </span>
-            </span>
+            <span className="text-sm font-bold text-white sm:text-base">Billy Htet</span>
           </Link>
 
           <div className="hidden items-center gap-1 md:flex">

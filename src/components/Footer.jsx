@@ -7,9 +7,8 @@ const Footer = () => {
     <footer className="border-t border-white/10 bg-primary">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-8 sm:flex-row sm:px-8 lg:px-10">
         <div className="text-center sm:text-left">
-          <p className="text-sm font-semibold text-white">Billy Htet</p>
-          <p className="mt-1 text-xs text-textSecondary">
-            © {new Date().getFullYear()} Htet Lin Aung. Built with care.
+          <p className="text-xs text-textSecondary">
+            Copyright © 2026, Billy Htet. All Rights Reserved.
           </p>
         </div>
 

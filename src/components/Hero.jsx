@@ -48,14 +48,6 @@ const Hero = () => (
           animate="visible"
           transition={{ staggerChildren: 0.1, delayChildren: 0.15 }}
         >
-          <motion.p
-            className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-secondary sm:text-sm"
-            variants={fadeUp}
-            transition={{ duration: 0.45 }}
-          >
-            Software Engineer Portfolio
-          </motion.p>
-
           <motion.h1
             className="text-balance text-5xl font-bold leading-[1.04] tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl"
             variants={fadeUp}
