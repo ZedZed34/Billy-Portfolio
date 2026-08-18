@@ -1,379 +1,168 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import profilePic from '../assets/profiles/profile.jpeg';
+import cvFile from '../assets/resume/HLA_Resume.pdf';
 import githubIcon from '../assets/icons/github-social.svg';
 import linkedinIcon from '../assets/icons/linkedin-social.svg';
 import instagramIcon from '../assets/icons/instagram-social.svg';
 import lineIcon from '../assets/icons/line-social.svg';
 
-// ── Particle generator (stable across renders) ──────────────────────────────
-const generateParticles = (count) =>
-  Array.from({ length: count }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 4 + 2, // 2-6px
-    opacity: Math.random() * 0.3 + 0.1, // 0.1-0.4
-    duration: Math.random() * 8 + 12, // 12-20s
-    delay: Math.random() * 5,
-    driftX: (Math.random() - 0.5) * 60, // horizontal drift range
-    driftY: (Math.random() - 0.5) * 40, // vertical drift range
-  }));
+const socialLinks = [
+  { label: 'GitHub', href: 'https://github.com/ZedZed34', icon: githubIcon },
+  {
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/in/htet-lin-aung-5159491a0',
+    icon: linkedinIcon,
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/billyhtet.hla',
+    icon: instagramIcon,
+  },
+  { label: 'LINE', href: 'https://line.me/ti/p/I8tP8Q7-Ym', icon: lineIcon },
+];
 
-const Hero = () => {
-  // ── Particles (memoised so array is stable) ──────────────────────────────
-  const particles = useMemo(() => generateParticles(25), []);
-
-  // Mouse parallax tracking
-  const heroRef = useRef(null);
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
-  const profileX = useTransform(mouseX, [0, 1], [8, -8]);
-  const profileY = useTransform(mouseY, [0, 1], [6, -6]);
-  const textX = useTransform(mouseX, [0, 1], [-6, 6]);
-  const textY = useTransform(mouseY, [0, 1], [-4, 4]);
-  const orbX = useTransform(mouseX, [0, 1], ['10%', '90%']);
-  const orbY = useTransform(mouseY, [0, 1], ['10%', '90%']);
-
-  const handleMouseMove = (e) => {
-    const rect = heroRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    mouseX.set((e.clientX - rect.left) / rect.width);
-    mouseY.set((e.clientY - rect.top) / rect.height);
-  };
-
-  // ── Typewriter state ─────────────────────────────────────────────────────
-  const nameText = 'Billy';
-  const subtitleText = 'Software Engineer';
-  const [displayedName, setDisplayedName] = useState('');
-  const [displayedSubtitle, setDisplayedSubtitle] = useState('');
-  const [showCursor, setShowCursor] = useState(true);
-  const [phase, setPhase] = useState('name'); // 'name' | 'pause' | 'subtitle' | 'done'
-
-  useEffect(() => {
-    let timeout;
-    if (phase === 'name') {
-      if (displayedName.length < nameText.length) {
-        timeout = setTimeout(() => {
-          setDisplayedName(nameText.slice(0, displayedName.length + 1));
-        }, 120);
-      } else {
-        setPhase('pause');
-      }
-    } else if (phase === 'pause') {
-      timeout = setTimeout(() => setPhase('subtitle'), 600);
-    } else if (phase === 'subtitle') {
-      if (displayedSubtitle.length < subtitleText.length) {
-        timeout = setTimeout(() => {
-          setDisplayedSubtitle(subtitleText.slice(0, displayedSubtitle.length + 1));
-        }, 80);
-      } else {
-        setPhase('done');
-      }
-    }
-    return () => clearTimeout(timeout);
-  }, [displayedName, displayedSubtitle, phase]);
-
-  // Blinking cursor
-  useEffect(() => {
-    const interval = setInterval(() => setShowCursor((v) => !v), 530);
-    return () => clearInterval(interval);
-  }, []);
-
-  // ── Existing variants ────────────────────────────────────────────────────
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5 },
-    },
-  };
-
-  const profileVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 15,
-      },
-    },
-  };
-
-  const socialVariants = {
-    hidden: { scale: 0, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 200,
-        damping: 15,
-      },
-    },
-  };
-
-  // ── Pulse ring configs ───────────────────────────────────────────────────
-  const pulseRings = [
-    { delay: 0, duration: 3 },
-    { delay: 1, duration: 3 },
-    { delay: 2, duration: 3 },
-  ];
-
-  return (
-    <motion.section
-      id="home"
-      ref={heroRef}
-      onMouseMove={handleMouseMove}
-      className="min-h-screen flex items-center bg-primary relative overflow-hidden"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
-      {/* ── Cursor-following gradient orb ──────────────────────────────── */}
-      <motion.div
-        className="gradient-orb"
-        style={{ left: orbX, top: orbY }}
-        aria-hidden="true"
-      />
-
-      {/* ── Floating Particles Background ──────────────────────────────── */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        {particles.map((p) => (
-          <motion.div
-            key={p.id}
-            className="absolute rounded-full"
-            style={{
-              left: `${p.x}%`,
-              top: `${p.y}%`,
-              width: p.size,
-              height: p.size,
-              backgroundColor: '#65001f',
-              opacity: p.opacity,
-            }}
-            animate={{
-              x: [0, p.driftX, -p.driftX * 0.6, p.driftX * 0.3, 0],
-              y: [0, p.driftY, -p.driftY * 0.5, p.driftY * 0.7, 0],
-              opacity: [p.opacity, p.opacity * 1.8, p.opacity * 0.5, p.opacity * 1.4, p.opacity],
-              scale: [1, 1.3, 0.8, 1.1, 1],
-            }}
-            transition={{
-              duration: p.duration,
-              delay: p.delay,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
-      </div>
-
-      {/* ── Main Content ───────────────────────────────────────────────── */}
-      <div className="section-container relative z-10">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          {/* Profile Picture - Left Side */}
-          <motion.div
-            className="flex justify-center md:justify-start"
-            variants={itemVariants}
-            style={{ x: profileX, y: profileY }}
-          >
-            {/* Floating wrapper */}
-            <motion.div
-              animate={{ y: [0, -12, 0] }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="relative"
-            >
-              {/* Pulse Rings */}
-              {pulseRings.map((ring, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute inset-0 rounded-full"
-                  style={{
-                    border: '2px solid #65001f',
-                  }}
-                  initial={{ scale: 1, opacity: 0.6 }}
-                  animate={{
-                    scale: [1, 1.35, 1.6],
-                    opacity: [0.6, 0.25, 0],
-                  }}
-                  transition={{
-                    duration: ring.duration,
-                    delay: ring.delay,
-                    repeat: Infinity,
-                    ease: 'easeOut',
-                  }}
-                />
-              ))}
-
-              {/* Glow layer behind image */}
-              <motion.div
-                className="absolute inset-0 rounded-full"
-                style={{
-                  boxShadow: '0 0 40px 8px rgba(101,0,31,0.45), 0 0 80px 16px rgba(101,0,31,0.2)',
-                }}
-                animate={{
-                  boxShadow: [
-                    '0 0 40px 8px rgba(101,0,31,0.45), 0 0 80px 16px rgba(101,0,31,0.2)',
-                    '0 0 60px 16px rgba(101,0,31,0.6), 0 0 100px 24px rgba(101,0,31,0.3)',
-                    '0 0 40px 8px rgba(101,0,31,0.45), 0 0 80px 16px rgba(101,0,31,0.2)',
-                  ],
-                }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              />
-
-              {/* Profile image container */}
-              <motion.div
-                className="w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-secondary shadow-2xl relative z-10"
-                variants={profileVariants}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              >
-                <motion.img
-                  src={profilePic}
-                  alt="Htet Lin Aung"
-                  className="w-full h-full object-cover object-center"
-                  initial={{ scale: 1.2 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1.5 }}
-                />
-              </motion.div>
-            </motion.div>
-          </motion.div>
-
-          {/* Introduction - Right Side */}
-          <motion.div
-            className="text-center md:text-left"
-            variants={itemVariants}
-            style={{ x: textX, y: textY }}
-          >
-            {/* Typewriter heading */}
-            <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-balance"
-              variants={itemVariants}
-            >
-              Hi, I&apos;m{' '}
-              <span className="text-secondary" style={{ color: '#65081f' }}>
-                {displayedName}
-                {(phase === 'name' || phase === 'pause') && (
-                  <span
-                    className="inline-block w-[3px] h-[1em] ml-1 align-middle"
-                    style={{
-                      backgroundColor: '#65081f',
-                      opacity: showCursor ? 1 : 0,
-                      transition: 'opacity 0.1s',
-                    }}
-                  />
-                )}
-              </span>
-            </motion.h1>
-
-            {/* Typewriter subtitle */}
-            <motion.h2
-              className="text-2xl sm:text-3xl font-bold text-textSecondary mb-4 min-h-[2.5rem]"
-              variants={itemVariants}
-            >
-              {displayedSubtitle}
-              {(phase === 'subtitle' || phase === 'done') && (
-                <span
-                  className="inline-block w-[3px] h-[0.9em] ml-1 align-middle"
-                  style={{
-                    backgroundColor: '#cccccc',
-                    opacity: showCursor ? 1 : 0,
-                    transition: 'opacity 0.1s',
-                  }}
-                />
-              )}
-            </motion.h2>
-
-            <motion.p
-              className="text-xl text-textSecondary mb-8"
-              variants={itemVariants}
-            >
-              A passionate and profound Software Engineer with high-caliber and
-              eagerness to attain new knowledge, conveying all the solutions and
-              experiences with modern technologies and appealing ideas into
-              elegant, efficient, and user-friendly applications.
-            </motion.p>
-
-            {/* Social Links */}
-            <motion.div
-              className="flex gap-4 justify-center md:justify-start"
-              variants={itemVariants}
-            >
-              <motion.a
-                href="https://github.com/ZedZed34"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12"
-                variants={socialVariants}
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="GitHub Profile"
-              >
-                <img src={githubIcon} alt="GitHub" className="w-full h-full" />
-              </motion.a>
-
-              <motion.a
-                href="https://linkedin.com/in/htet-lin-aung-5159491a0"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12"
-                variants={socialVariants}
-                whileHover={{ scale: 1.2, rotate: -5 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="LinkedIn Profile"
-              >
-                <img src={linkedinIcon} alt="LinkedIn" className="w-full h-full" />
-              </motion.a>
-
-              <motion.a
-                href="https://www.instagram.com/billyhtet.hla"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12"
-                variants={socialVariants}
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="Instagram Profile"
-              >
-                <img src={instagramIcon} alt="Instagram" className="w-full h-full" />
-              </motion.a>
-
-              <motion.a
-                href="https://line.me/ti/p/I8tP8Q7-Ym"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12"
-                variants={socialVariants}
-                whileHover={{ scale: 1.2, rotate: -5 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="LINE"
-              >
-                <img src={lineIcon} alt="LINE" className="w-full h-full" />
-              </motion.a>
-            </motion.div>
-          </motion.div>
-        </div>
-      </div>
-    </motion.section>
-  );
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
 };
+
+const Hero = () => (
+  <section
+    id="home"
+    className="relative flex min-h-screen items-center overflow-hidden bg-primary pt-28 sm:pt-32"
+  >
+    <div
+      className="pointer-events-none absolute -right-48 top-20 h-[32rem] w-[32rem] rounded-full bg-secondary opacity-20 blur-[120px]"
+      aria-hidden="true"
+    />
+    <div
+      className="pointer-events-none absolute -left-48 bottom-0 h-96 w-96 rounded-full border border-secondary opacity-30"
+      aria-hidden="true"
+    />
+
+    <div className="section-container relative z-10 w-full">
+      <div className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20">
+        <motion.div
+          className="order-2 text-center lg:order-1 lg:text-left"
+          initial="hidden"
+          animate="visible"
+          transition={{ staggerChildren: 0.1, delayChildren: 0.15 }}
+        >
+          <motion.p
+            className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-secondary sm:text-sm"
+            variants={fadeUp}
+            transition={{ duration: 0.45 }}
+          >
+            Software Engineer Portfolio
+          </motion.p>
+
+          <motion.h1
+            className="text-balance text-5xl font-bold leading-[1.04] tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl"
+            variants={fadeUp}
+            transition={{ duration: 0.5 }}
+          >
+            Hi, I&apos;m <span className="text-secondary">Billy.</span>
+          </motion.h1>
+
+          <motion.h2
+            className="mt-5 text-xl font-semibold text-white sm:text-2xl"
+            variants={fadeUp}
+            transition={{ duration: 0.5 }}
+          >
+            I design and build thoughtful digital products.
+          </motion.h2>
+
+          <motion.p
+            className="mx-auto mt-5 max-w-2xl text-pretty text-base leading-8 text-textSecondary sm:text-lg lg:mx-0"
+            variants={fadeUp}
+            transition={{ duration: 0.5 }}
+          >
+            A passionate Software Engineer who turns modern technologies and
+            appealing ideas into elegant, efficient, and user-friendly
+            applications.
+          </motion.p>
+
+          <motion.div
+            className="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start"
+            variants={fadeUp}
+            transition={{ duration: 0.5 }}
+          >
+            <a href="#projects" className="btn-primary">
+              Explore my work
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path d="M5 12h14m-6-6 6 6-6 6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+            <a href={cvFile} download="Htet_Lin_Aung_Resume.pdf" className="btn-secondary">
+              Download résumé
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </motion.div>
+
+          <motion.div
+            className="mt-8 flex items-center justify-center gap-3 lg:justify-start"
+            variants={fadeUp}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="mr-1 text-xs font-semibold uppercase tracking-[0.18em] text-textSecondary">
+              Find me
+            </span>
+            {socialLinks.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                aria-label={`${social.label} profile`}
+              >
+                <img src={social.icon} alt="" className="h-full w-full" />
+              </a>
+            ))}
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          className="order-1 mx-auto w-full max-w-[28rem] lg:order-2"
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.65, delay: 0.1, ease: 'easeOut' }}
+        >
+          <div className="relative">
+            <div
+              className="absolute -inset-4 translate-x-6 translate-y-6 rounded-[2rem] border border-secondary"
+              aria-hidden="true"
+            />
+            <div
+              className="absolute -left-6 -top-6 h-24 w-24 rounded-2xl bg-secondary opacity-60"
+              aria-hidden="true"
+            />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-tertiary shadow-2xl shadow-black/40">
+              <img
+                src={profilePic}
+                alt="Htet Lin Aung, Software Engineer"
+                className="h-full w-full object-cover object-center"
+                fetchPriority="high"
+              />
+              <div
+                className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-primary to-transparent"
+                aria-hidden="true"
+              />
+              <div className="absolute inset-x-5 bottom-5 flex items-center justify-between rounded-xl border border-white/10 bg-primary/80 px-4 py-3 backdrop-blur-md">
+                <div>
+                  <p className="text-sm font-bold text-white">Htet Lin Aung</p>
+                  <p className="text-xs text-textSecondary">AKA Billy</p>
+                </div>
+                <span className="h-2.5 w-2.5 rounded-full bg-secondary shadow-[0_0_0_5px_rgba(101,0,31,0.25)]" />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  </section>
+);
 
 export default Hero;

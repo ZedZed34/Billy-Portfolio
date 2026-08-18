@@ -193,7 +193,7 @@ const Resume = () => {
   return (
     <motion.section 
       id="resume" 
-      className="bg-primary py-20"
+      className="bg-primary"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
@@ -201,21 +201,25 @@ const Resume = () => {
       variants={containerVariants}
     >
       <div className="section-container">
-        <motion.h2 
-          className="text-3xl sm:text-4xl font-bold text-white text-center mb-12 text-balance"
+        <motion.header
           variants={sectionVariants}
         >
-          My Background
-        </motion.h2>
+          <span className="section-kicker">Career journey</span>
+          <h2 className="section-title">Experience that bridges disciplines.</h2>
+          <p className="section-intro">
+            From electronic systems to modern software, every role has
+            strengthened my approach to analysis, collaboration, and delivery.
+          </p>
+        </motion.header>
 
         <motion.div 
-          className="grid lg:grid-cols-2 gap-12"
+          className="mt-14 grid gap-10 lg:grid-cols-2 lg:gap-12"
           variants={containerVariants}
         >
           {/* Experience Section */}
           <motion.div variants={sectionVariants}>
             <motion.h3 
-              className="text-2xl font-bold mb-6 text-white flex items-center"
+              className="mb-6 flex items-center text-2xl font-bold text-white"
               variants={itemVariants}
             >
               <SectionIndicator />
@@ -231,7 +235,7 @@ const Resume = () => {
                 {experience.map((job) => (
                   <motion.div 
                     key={job.id} 
-                    className="bg-tertiary p-6 rounded-lg"
+                    className="surface-card p-6 transition duration-200 hover:border-secondary"
                     variants={cardVariants}
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -243,27 +247,25 @@ const Resume = () => {
                       {job.title}
                     </motion.h4>
                     <motion.p 
-                      className="text-white mb-2"
+                      className="mt-1 text-white"
                       variants={itemVariants}
                     >
                       {job.company}
                     </motion.p>
                     <motion.p 
-                      className="text-textSecondary text-sm mb-4"
+                      className="mt-3 inline-flex rounded-full border border-secondary px-3 py-1 text-xs font-semibold text-textSecondary"
                       variants={itemVariants}
                     >
                       {job.duration}
                     </motion.p>
                     <motion.ul 
-                      className="list-disc list-inside text-textSecondary space-y-1"
+                      className="mt-5 list-outside list-disc space-y-2 pl-5 text-sm leading-6 text-textSecondary"
                       variants={containerVariants}
                     >
                       {job.responsibilities.map((resp, index) => (
                         <motion.li 
                           key={index}
                           variants={itemVariants}
-                          whileHover={{ x: 10 }}
-                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
                         >
                           {resp}
                         </motion.li>
@@ -279,7 +281,7 @@ const Resume = () => {
           <motion.div variants={sectionVariants}>
             {/* Education */}
             <motion.h3 
-              className="text-2xl font-bold mb-6 text-white flex items-center"
+              className="mb-6 flex items-center text-2xl font-bold text-white"
               variants={itemVariants}
             >
               <SectionIndicator />
@@ -295,7 +297,7 @@ const Resume = () => {
                 {education.map((edu) => (
                   <motion.div 
                     key={edu.id} 
-                    className="bg-tertiary p-6 rounded-lg"
+                    className="surface-card p-6 transition duration-200 hover:border-secondary"
                     variants={cardVariants}
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -307,19 +309,19 @@ const Resume = () => {
                       {edu.degree}
                     </motion.h4>
                     <motion.p 
-                      className="text-white mb-2"
+                      className="mt-1 text-white"
                       variants={itemVariants}
                     >
                       {edu.institution}
                     </motion.p>
                     <motion.p 
-                      className="text-textSecondary text-sm mb-2"
+                      className="mt-3 inline-flex rounded-full border border-secondary px-3 py-1 text-xs font-semibold text-textSecondary"
                       variants={itemVariants}
                     >
                       {edu.duration}
                     </motion.p>
                     <motion.p 
-                      className="text-textSecondary"
+                      className="mt-4 text-sm leading-6 text-textSecondary"
                       variants={itemVariants}
                     >
                       {edu.details}
@@ -331,21 +333,21 @@ const Resume = () => {
 
             {/* Certifications with 3D flip reveal */}
             <motion.h3 
-              className="text-2xl font-bold mb-6 text-white flex items-center"
+              className="mb-6 flex items-center text-2xl font-bold text-white"
               variants={itemVariants}
             >
               <SectionIndicator />
               Certifications
             </motion.h3>
             <motion.div 
-              className="space-y-4"
+              className="grid gap-4 sm:grid-cols-2"
               variants={containerVariants}
               style={{ perspective: 800 }}
             >
               {certifications.map((cert) => (
                 <motion.div 
                   key={cert.id} 
-                  className="bg-tertiary p-4 rounded-lg"
+                  className="surface-card p-5 transition duration-200 hover:border-secondary"
                   variants={certFlipVariants}
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -358,7 +360,7 @@ const Resume = () => {
                     {cert.name}
                   </motion.h4>
                   <motion.p 
-                    className="text-textSecondary"
+                    className="mt-2 text-sm text-textSecondary"
                     variants={itemVariants}
                   >
                     {cert.issuer} • {cert.date}

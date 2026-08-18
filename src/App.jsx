@@ -9,13 +9,10 @@ import Footer from './components/Footer'
 import './App.css'
 
 const SectionDivider = () => (
-  <div className="flex justify-center py-4">
+  <div className="section-divider" aria-hidden="true">
     <motion.div
-      className="h-[2px] w-full max-w-4xl mx-8 rounded-full"
-      style={{
-        background: 'linear-gradient(90deg, transparent 0%, #65001f 30%, #65001f 70%, transparent 100%)',
-        originX: 0.5,
-      }}
+      className="section-divider__line"
+      style={{ originX: 0.5 }}
       initial={{ scaleX: 0, opacity: 0 }}
       whileInView={{ scaleX: 1, opacity: 1 }}
       viewport={{ once: true, margin: '-20px' }}
@@ -27,10 +24,11 @@ const SectionDivider = () => (
 function App() {
   return (
     <div className="bg-primary min-h-screen">
+      <a href="#main-content" className="skip-link">Skip to content</a>
       {/* Grain texture overlay */}
       <div className="grain-overlay" aria-hidden="true" />
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <SectionDivider />
         <About />

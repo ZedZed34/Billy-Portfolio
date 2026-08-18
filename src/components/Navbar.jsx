@@ -1,288 +1,187 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-scroll';
-import { motion, AnimatePresence, useScroll, useSpring, useMotionValueEvent } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
+} from 'framer-motion';
+
+const navItems = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'resume', label: 'Experience' },
+  { id: 'contact', label: 'Contact' },
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-
-  // ── Scroll progress ────────────────────────────────────────────────────
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
+    stiffness: 120,
     damping: 30,
     restDelta: 0.001,
   });
 
-  // ── Glassmorphism trigger ──────────────────────────────────────────────
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     setScrolled(latest > 0.01);
   });
 
-  // ── Track active section via Intersection Observer ─────────────────────
   useEffect(() => {
-    const sectionIds = ['home', 'about', 'projects', 'resume', 'contact'];
-    const observers = [];
+    const observers = navItems.map(({ id }) => {
+      const section = document.getElementById(id);
+      if (!section) return null;
 
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
       const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(id);
-          }
-        },
-        { threshold: 0.35 }
+        ([entry]) => entry.isIntersecting && setActiveSection(id),
+        { rootMargin: '-25% 0px -60% 0px' },
       );
-      observer.observe(el);
-      observers.push(observer);
+      observer.observe(section);
+      return observer;
     });
 
-    return () => observers.forEach((o) => o.disconnect());
+    return () => observers.forEach((observer) => observer?.disconnect());
   }, []);
 
-  // ── Animation variants ────────────────────────────────────────────────
-  const navVariants = {
-    hidden: { y: -100 },
-    visible: {
-      y: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 20,
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  useEffect(() => {
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setIsOpen(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, []);
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 20,
-      },
-    },
-  };
-
-  const mobileMenuVariants = {
-    hidden: { opacity: 0, height: 0 },
-    visible: {
-      opacity: 1,
-      height: 'auto',
-      transition: {
-        duration: 0.3,
-        staggerChildren: 0.1,
-      },
-    },
-    exit: {
-      opacity: 0,
-      height: 0,
-      transition: {
-        duration: 0.3,
-      },
-    },
-  };
-
-  const mobileItemVariants = {
-    hidden: { x: -20, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 20,
-      },
-    },
-  };
-
-  const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'resume', label: 'Experience' },
-    { id: 'contact', label: 'Contact' },
-  ];
+  const navLinkClass = (id, mobile = false) =>
+    `${mobile ? 'flex min-h-[48px] items-center rounded-xl px-4' : 'relative px-3 py-2'} cursor-pointer text-sm font-semibold transition-colors duration-200 ${
+      activeSection === id ? 'text-white' : 'text-textSecondary hover:text-white'
+    }`;
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      style={{
-        backgroundColor: scrolled ? 'rgba(101, 0, 31, 0.75)' : '#65001f',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
-        boxShadow: scrolled
-          ? '0 4px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05)'
-          : '0 4px 6px -1px rgba(0,0,0,0.1)',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none',
-      }}
-      initial="hidden"
-      animate="visible"
-      variants={navVariants}
+      className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4"
+      initial={{ opacity: 0, y: -24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: 'easeOut' }}
+      aria-label="Primary navigation"
     >
-      <div className="flex items-center h-16">
-        {/* Logo */}
-        <Link to="home" spy={true} smooth={true} offset={-64} duration={500}>
-          <motion.h1
-            className="text-2xl font-bold text-white px-4 cursor-pointer"
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
+      <div
+        className="relative mx-auto max-w-7xl overflow-hidden rounded-2xl border border-white/10 px-4 transition duration-300 sm:px-5"
+        style={{
+          backgroundColor: scrolled ? 'rgba(101, 0, 31, 0.88)' : 'rgba(101, 0, 31, 0.96)',
+          backdropFilter: 'blur(18px)',
+          WebkitBackdropFilter: 'blur(18px)',
+          boxShadow: scrolled
+            ? '0 18px 50px rgba(0, 0, 0, 0.35)'
+            : '0 10px 30px rgba(0, 0, 0, 0.2)',
+        }}
+      >
+        <div className="flex h-16 items-center justify-between gap-6">
+          <Link
+            to="home"
+            smooth
+            offset={-96}
+            duration={500}
+            className="flex cursor-pointer items-center gap-3 rounded-xl"
+            aria-label="Billy Htet, back to home"
+            onClick={() => setIsOpen(false)}
           >
-            Htet Lin Aung AKA Billy
-          </motion.h1>
-        </Link>
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/20 bg-primary text-sm font-bold text-white">
+              BH
+            </span>
+            <span className="leading-tight">
+              <span className="block text-sm font-bold text-white sm:text-base">Billy Htet</span>
+              <span className="hidden text-[11px] font-medium uppercase tracking-[0.15em] text-textSecondary sm:block">
+                Software Engineer
+              </span>
+            </span>
+          </Link>
 
-        {/* Desktop Navigation */}
-        <div className="flex-1 flex items-center justify-center">
-          <motion.div
-            className="hidden md:flex space-x-12"
-            variants={itemVariants}
-          >
+          <div className="hidden items-center gap-1 md:flex">
             {navItems.map((item) => (
-              <motion.div
+              <Link
                 key={item.id}
-                className="relative"
-                variants={itemVariants}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+                to={item.id}
+                spy
+                smooth
+                offset={-96}
+                duration={500}
+                className={navLinkClass(item.id)}
+                aria-current={activeSection === item.id ? 'page' : undefined}
+                onSetActive={() => setActiveSection(item.id)}
               >
-                <Link
-                  to={item.id}
-                  spy={true}
-                  smooth={true}
-                  offset={-64}
-                  duration={500}
-                  className={`text-lg font-medium cursor-pointer transition-colors duration-200 ${
-                    activeSection === item.id
-                      ? 'text-white'
-                      : 'text-gray-300 hover:text-white'
-                  }`}
-                  onSetActive={() => setActiveSection(item.id)}
-                >
-                  {item.label}
-                </Link>
-
-                {/* Animated underline */}
+                {item.label}
                 {activeSection === item.id && (
-                  <motion.div
+                  <motion.span
                     layoutId="nav-underline"
-                    className="absolute -bottom-1 left-0 right-0 h-[2px]"
-                    style={{
-                      background: 'linear-gradient(90deg, #ff4d6d, #65001f)',
-                      borderRadius: '1px',
-                    }}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 350,
-                      damping: 30,
-                    }}
+                    className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-white"
+                    transition={{ type: 'spring', stiffness: 360, damping: 30 }}
                   />
                 )}
-              </motion.div>
+              </Link>
             ))}
-          </motion.div>
+          </div>
 
-          {/* Mobile menu button */}
-          <motion.button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden px-4 absolute right-2"
-            whileTap={{ scale: 0.9 }}
+          <button
+            type="button"
+            onClick={() => setIsOpen((open) => !open)}
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-white/15 text-white transition hover:bg-white/10 md:hidden"
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+            aria-label={isOpen ? 'Close main menu' : 'Open main menu'}
           >
-            <span className="sr-only">Open main menu</span>
-            <motion.div
-              animate={isOpen ? { rotate: 180 } : { rotate: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {!isOpen ? (
-                <svg
-                  className="h-6 w-6 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="h-6 w-6 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              )}
-            </motion.div>
-          </motion.button>
+            {isOpen ? (
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path d="M4 7h16M4 12h16M4 17h16" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
         </div>
+
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              id="mobile-navigation"
+              className="border-t border-white/10 py-3 md:hidden"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="grid gap-1">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.id}
+                    to={item.id}
+                    spy
+                    smooth
+                    offset={-96}
+                    duration={500}
+                    className={`${navLinkClass(item.id, true)} ${activeSection === item.id ? 'bg-white/10' : 'hover:bg-white/5'}`}
+                    aria-current={activeSection === item.id ? 'page' : undefined}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <motion.div
+          className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-white"
+          style={{ scaleX }}
+          aria-hidden="true"
+        />
       </div>
-
-      {/* Mobile Navigation */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="md:hidden border-t border-gray-700"
-            style={{
-              backgroundColor: 'rgba(101, 0, 31, 0.9)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-            }}
-            variants={mobileMenuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            {navItems.map((item) => (
-              <motion.div
-                key={item.id}
-                variants={mobileItemVariants}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  to={item.id}
-                  spy={true}
-                  smooth={true}
-                  offset={-64}
-                  duration={500}
-                  className={`block px-4 py-2 text-base font-medium ${
-                    activeSection === item.id
-                      ? 'text-white bg-red-900/40'
-                      : 'text-white hover:bg-red-900'
-                  }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ── Scroll Progress Bar ────────────────────────────────────────── */}
-      <motion.div
-        className="absolute bottom-0 left-0 right-0 h-[2px] origin-left"
-        style={{
-          scaleX,
-          background: 'linear-gradient(90deg, #65001f, #dc143c, #ff4d6d)',
-        }}
-      />
     </motion.nav>
   );
 };

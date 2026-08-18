@@ -1,242 +1,28 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import cvFile from '../assets/resume/HLA_Resume.pdf';
 
-/* ─── Animated background dot grid ─── */
-const AnimatedDotGrid = () => {
-  const dots = useMemo(() => {
-    const arr = [];
-    for (let row = 0; row < 12; row++) {
-      for (let col = 0; col < 16; col++) {
-        arr.push({ id: `${row}-${col}`, x: col * 60 + 30, y: row * 50 + 25 });
-      }
-    }
-    return arr;
-  }, []);
+const ACCESS_KEY = '3a3798cf-c5a2-4a3a-8083-b17e3c754a90';
 
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      <svg className="w-full h-full" style={{ minHeight: '100%' }}>
-        {dots.map((dot) => (
-          <motion.circle
-            key={dot.id}
-            cx={`${(dot.x / 960) * 100}%`}
-            cy={`${(dot.y / 600) * 100}%`}
-            r="1.5"
-            fill="#65001f"
-            initial={{ opacity: 0.08 }}
-            animate={{
-              opacity: [0.08, 0.25, 0.08],
-              scale: [1, 1.4, 1],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
-      </svg>
-    </div>
-  );
-};
+const socialLinks = [
+  { label: 'GitHub', href: 'https://github.com/ZedZed34', icon: '/icons/github-social.svg' },
+  {
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/in/htet-lin-aung-5159491a0',
+    icon: '/icons/linkedin-social.svg',
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/billyhtet.hla',
+    icon: '/icons/instagram-social.svg',
+  },
+  { label: 'LINE', href: 'https://line.me/ti/p/I8tP8Q7-Ym', icon: '/icons/line-social.svg' },
+];
 
-/* ─── Floating label input with glowing border ─── */
-const FloatingInput = ({ id, name, value, onChange, required, type = 'text', isTextarea = false }) => {
-  const [isFocused, setIsFocused] = useState(false);
-  const hasValue = value && value.length > 0;
-  const isActive = isFocused || hasValue;
-  const label = name.charAt(0).toUpperCase() + name.slice(1);
-
-  const inputProps = {
-    id,
-    name,
-    value,
-    onChange,
-    required,
-    onFocus: () => setIsFocused(true),
-    onBlur: () => setIsFocused(false),
-    className: `w-full px-4 pt-6 pb-2 bg-tertiary rounded-lg focus:outline-none text-white transition-colors duration-300 ${
-      isFocused ? 'ring-2 ring-secondary' : ''
-    }`,
-  };
-
-  return (
-    <motion.div
-      className="relative"
-      initial={{ x: -20, opacity: 0 }}
-      whileInView={{ x: 0, opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ type: 'spring', stiffness: 100, damping: 15 }}
-    >
-      {/* Glow effect behind the input */}
-      <AnimatePresence>
-        {isFocused && (
-          <motion.div
-            className="absolute inset-0 rounded-lg pointer-events-none z-0"
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0.3, 0.6, 0.3],
-              boxShadow: [
-                '0 0 10px rgba(101,0,31,0.3)',
-                '0 0 20px rgba(101,0,31,0.5)',
-                '0 0 10px rgba(101,0,31,0.3)',
-              ],
-            }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Floating label */}
-      <motion.label
-        htmlFor={id}
-        className="absolute left-4 pointer-events-none font-medium z-10"
-        animate={{
-          top: isActive ? 6 : 14,
-          fontSize: isActive ? '0.7rem' : '0.875rem',
-          color: isActive ? '#65001f' : '#cccccc',
-        }}
-        transition={{ duration: 0.2, ease: 'easeOut' }}
-      >
-        {label}
-      </motion.label>
-
-      {/* Input or textarea */}
-      {isTextarea ? (
-        <motion.textarea
-          {...inputProps}
-          rows="4"
-          whileFocus={{ scale: 1.02 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        />
-      ) : (
-        <motion.input
-          {...inputProps}
-          type={type}
-          whileFocus={{ scale: 1.02 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        />
-      )}
-    </motion.div>
-  );
-};
-
-/* ─── Animated submit button with loading/success states ─── */
-const SubmitButton = ({ status }) => (
-  <motion.button
-    type="submit"
-    disabled={status === 'sending'}
-    className="w-full bg-secondary text-white py-3 px-6 rounded-lg hover:bg-opacity-90 transition-all duration-300 relative overflow-hidden min-h-[48px] flex items-center justify-center cursor-pointer"
-    initial={{ y: 20, opacity: 0 }}
-    whileInView={{ y: 0, opacity: 1 }}
-    viewport={{ once: true }}
-    whileHover={{ scale: 1.02, boxShadow: '0 0 20px rgba(101,0,31,0.4)' }}
-    whileTap={{ scale: 0.98 }}
-  >
-    <AnimatePresence mode="wait">
-      {status === 'sending' ? (
-        <motion.div
-          key="spinner"
-          className="flex items-center gap-2"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.2 }}
-        >
-          {/* Animated spinner */}
-          <motion.div
-            className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
-          />
-          <span>Sending...</span>
-        </motion.div>
-      ) : status === 'success' ? (
-        <motion.div
-          key="check"
-          className="flex items-center gap-2"
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ type: 'spring', stiffness: 200, damping: 12 }}
-        >
-          {/* Animated checkmark */}
-          <motion.svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#ffffff"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <motion.path
-              d="M5 13l4 4L19 7"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-            />
-          </motion.svg>
-          <span>Sent!</span>
-        </motion.div>
-      ) : (
-        <motion.span
-          key="send"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.2 }}
-        >
-          Send Message
-        </motion.span>
-      )}
-    </AnimatePresence>
-  </motion.button>
-);
+const fieldClass =
+  'mt-2 w-full rounded-xl border border-white/10 bg-primary px-4 py-3 text-white placeholder:text-textSecondary/70 transition duration-200 hover:border-white/20 focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/40';
 
 const Contact = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15
-      }
-    }
-  };
-
-  const socialVariants = {
-    hidden: { scale: 0, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 200,
-        damping: 15
-      }
-    }
-  };
-
-  const ACCESS_KEY = "3a3798cf-c5a2-4a3a-8083-b17e3c754a90";
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -245,268 +31,240 @@ const Contact = () => {
   });
   const [status, setStatus] = useState('');
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleChange = (event) => {
+    setFormData((current) => ({
+      ...current,
+      [event.target.name]: event.target.value,
+    }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Reminder for setting up Email API Token not really relevant
-    if (ACCESS_KEY === "ACCESS_KEY") {
-      alert("Please get your free access key from https://web3forms.com/ and replace ACCESS_KEY in the code!");
-      return;
-    }
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setStatus('sending');
 
     try {
-      // Using Web3Forms - simpler alternative to EmailJS
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
         body: JSON.stringify({
           access_key: ACCESS_KEY,
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
+          ...formData,
           replyto: formData.email,
           from_name: formData.name,
-          to_name: "Htet Lin Aung",
+          to_name: 'Htet Lin Aung',
         }),
       });
-
       const result = await response.json();
 
-      if (result.success) {
-        console.log("Form submitted successfully");
-        setStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        setTimeout(() => setStatus(''), 5000);
-      } else {
-        console.error("Form submission failed:", result);
-        setStatus('error');
-        setTimeout(() => setStatus(''), 5000);
-      }
+      if (!result.success) throw new Error('Form submission failed');
+      setStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error('Error submitting form:', error);
       setStatus('error');
-      setTimeout(() => setStatus(''), 5000);
     }
   };
 
   return (
-    <motion.section
-      id="contact"
-      className="bg-primary pb-4 pt-12 relative"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={containerVariants}
-    >
-      {/* Animated background dot pattern */}
-      <AnimatedDotGrid />
+    <section id="contact" className="relative overflow-hidden bg-primary">
+      <div
+        className="pointer-events-none absolute -bottom-44 -right-44 h-[30rem] w-[30rem] rounded-full bg-secondary opacity-20 blur-[120px]"
+        aria-hidden="true"
+      />
 
       <div className="section-container relative z-10">
-        <motion.h2
-          className="text-3xl sm:text-4xl font-bold mb-8 text-center text-balance"
-          variants={itemVariants}
+        <motion.header
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5 }}
         >
-          Get In <motion.span
-            className="text-white"
-            animate={{
-              opacity: [1, 0.7, 1],
-              transition: { duration: 2, repeat: Infinity }
-            }}
-          >
-            Touch
-          </motion.span>
-        </motion.h2>
-        <motion.div
-          className="max-w-2xl mx-auto"
-          variants={containerVariants}
-        >
-          <motion.form
-            onSubmit={handleSubmit}
-            className="space-y-6"
-            variants={containerVariants}
-          >
-            <FloatingInput
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-            <FloatingInput
-              id="email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <FloatingInput
-              id="subject"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-            />
-            <FloatingInput
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              isTextarea
-            />
+          <span className="section-kicker">Let&apos;s connect</span>
+          <h2 className="section-title">Have a project or opportunity in mind?</h2>
+          <p className="section-intro">
+            Tell me a little about what you&apos;re building. I&apos;ll get back
+            to you as soon as I can.
+          </p>
+        </motion.header>
 
-            <SubmitButton status={status} />
-
-            <AnimatePresence>
-              {status === 'success' && (
-                <motion.p
-                  className="text-green-500 text-center"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                >
-                  Message sent successfully!
-                </motion.p>
-              )}
-              {status === 'error' && (
-                <motion.p
-                  className="text-red-500 text-center"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                >
-                  Failed to send message. Please try again.
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </motion.form>
-
-          <motion.div
-            className="mt-6 text-center"
-            variants={containerVariants}
+        <div className="mt-12 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-10">
+          <motion.aside
+            className="surface-card flex flex-col p-6 sm:p-8"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
           >
-            <motion.p
-              className="text-white mb-1 text-xl"
-              variants={itemVariants}
-            >
-              Email: <motion.a
-                href="mailto:htetlinaungpc@gmail.com"
-                className="text-secondary hover:underline"
-                whileHover={{ scale: 1.05 }}
-              >
-                htetlinaungpc@gmail.com
-              </motion.a>
-            </motion.p>
-            <motion.p
-              className="text-white mb-2 text-xl"
-              variants={itemVariants}
-            >
-              WhatsApp: <motion.a
-                href="https://wa.me/6584024132"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-secondary hover:underline"
-                whileHover={{ scale: 1.05 }}
-              >
-                +6584024132
-              </motion.a>
-            </motion.p>
-            <motion.p
-              className="text-white mb-3 text-xl"
-              variants={itemVariants}
-            >
-              LINE ID: <motion.a
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-secondary hover"
-                whileHover={{ scale: 1.05 }}
-              >
-                1446895
-              </motion.a>
-            </motion.p>
-            <motion.a
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-secondary">
+              Direct contact
+            </p>
+            <h3 className="mt-3 text-2xl font-bold text-white">Start a conversation.</h3>
+            <p className="mt-4 text-sm leading-7 text-textSecondary">
+              Prefer email or messaging? Reach me directly through any of the
+              channels below.
+            </p>
+
+            <dl className="mt-8 space-y-6">
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-wider text-textSecondary">Email</dt>
+                <dd className="mt-1">
+                  <a
+                    href="mailto:htetlinaungpc@gmail.com"
+                    className="break-all font-semibold text-white transition hover:text-secondary"
+                  >
+                    htetlinaungpc@gmail.com
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-wider text-textSecondary">WhatsApp</dt>
+                <dd className="mt-1">
+                  <a
+                    href="https://wa.me/6584024132"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-white transition hover:text-secondary"
+                  >
+                    +65 8402 4132
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-wider text-textSecondary">LINE ID</dt>
+                <dd className="mt-1 font-semibold text-white">1446895</dd>
+              </div>
+            </dl>
+
+            <a
               href={cvFile}
               download="Htet_Lin_Aung_Resume.pdf"
-              className="text-secondary hover:text-opacity-80 transition-colors duration-200 underline text-2xl mb-3 inline-block"
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="btn-secondary mt-8 w-full"
             >
-              Download Resume
-            </motion.a>
+              Download résumé
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
 
-            {/* Social Links */}
-            <motion.div
-              className="flex justify-center gap-8 mt-3"
-              variants={containerVariants}
+            <div className="mt-auto pt-8">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-textSecondary">Elsewhere</p>
+              <div className="flex gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-link"
+                    aria-label={`${social.label} profile`}
+                  >
+                    <img src={social.icon} alt="" className="h-full w-full" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </motion.aside>
+
+          <motion.form
+            onSubmit={handleSubmit}
+            className="surface-card p-6 sm:p-8"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="grid gap-6 sm:grid-cols-2">
+              <label className="block text-sm font-semibold text-white">
+                Name
+                <input
+                  className={fieldClass}
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  autoComplete="name"
+                  placeholder="Your name"
+                  required
+                />
+              </label>
+              <label className="block text-sm font-semibold text-white">
+                Email
+                <input
+                  className={fieldClass}
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  autoComplete="email"
+                  placeholder="you@example.com"
+                  required
+                />
+              </label>
+            </div>
+
+            <label className="mt-6 block text-sm font-semibold text-white">
+              Subject
+              <input
+                className={fieldClass}
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                placeholder="What would you like to discuss?"
+                required
+              />
+            </label>
+
+            <label className="mt-6 block text-sm font-semibold text-white">
+              Message
+              <textarea
+                className={fieldClass}
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="A few details about your project or opportunity..."
+                rows="7"
+                required
+              />
+            </label>
+
+            <button
+              type="submit"
+              disabled={status === 'sending'}
+              className="btn-primary mt-6 w-full cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
             >
-              <motion.a
-                href="https://github.com/ZedZed34"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12"
-                variants={socialVariants}
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="GitHub Profile"
-              >
-                <img src="/icons/github-social.svg" alt="GitHub" className="w-full h-full" />
-              </motion.a>
-              <motion.a
-                href="https://linkedin.com/in/htet-lin-aung-5159491a0"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12"
-                variants={socialVariants}
-                whileHover={{ scale: 1.2, rotate: -5 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="LinkedIn Profile"
-              >
-                <img src="/icons/linkedin-social.svg" alt="LinkedIn" className="w-full h-full" />
-              </motion.a>
-              <motion.a
-                href="https://www.instagram.com/billyhtet.hla"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12"
-                variants={socialVariants}
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="Instagram Profile"
-              >
-                <img src="/icons/instagram-social.svg" alt="Instagram" className="w-full h-full" />
-              </motion.a>
-              <motion.a
-                href="https://line.me/ti/p/I8tP8Q7-Ym"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12"
-                variants={socialVariants}
-                whileHover={{ scale: 1.2, rotate: -5 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="LINE"
-              >
-                <img src="/icons/line-social.svg" alt="LINE" className="w-full h-full" />
-              </motion.a>
-            </motion.div>
-          </motion.div>
-        </motion.div>
+              {status === 'sending' ? (
+                <>
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  Sending message...
+                </>
+              ) : (
+                <>
+                  Send message
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="m4 4 16 8-16 8 3-8-3-8Zm3 8h13" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </>
+              )}
+            </button>
+
+            <div className="mt-4 min-h-6 text-center text-sm" aria-live="polite">
+              {status === 'success' && (
+                <p className="font-medium text-white">Thanks — your message was sent successfully.</p>
+              )}
+              {status === 'error' && (
+                <p className="font-medium text-white">Something went wrong. Please try again or email me directly.</p>
+              )}
+            </div>
+          </motion.form>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
