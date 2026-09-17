@@ -6,6 +6,7 @@ import Projects from './components/Projects'
 import Resume from './components/Resume' 
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import { Analytics } from '@vercel/analytics/react'
 import './App.css'
 
 const SectionDivider = () => (
@@ -40,6 +41,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <Analytics />
     </div>
   )
 }
