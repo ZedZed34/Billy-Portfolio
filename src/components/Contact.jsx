@@ -43,7 +43,8 @@ const Contact = () => {
     setStatus('sending');
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      // 1. Send via Web3Forms (Email)
+      const emailResponse = fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,9 +58,22 @@ const Contact = () => {
           to_name: 'Htet Lin Aung',
         }),
       });
-      const result = await response.json();
 
-      if (!result.success) throw new Error('Form submission failed');
+      // 2. Send via LINE Notify API (Serverless Function)
+      const lineResponse = fetch('/api/notify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      // Wait for both to finish
+      const [emailRes, lineRes] = await Promise.all([emailResponse, lineResponse]);
+      
+      const emailResult = await emailRes.json();
+      if (!emailResult.success) throw new Error('Form submission failed');
+
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
